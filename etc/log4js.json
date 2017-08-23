@@ -1,0 +1,52 @@
+{
+	"appenders": 
+	[
+		{
+			"type": "file",
+			"filename": "log/audit.log",
+			"maxLogSize": 10240000,
+			"backups": 10,
+			"category": ["audit"],
+			"layout": 
+			{
+				"type": "messagePassThrough"
+			}
+		},
+		
+		{
+			"type": "file",
+			"filename": "log/metrics.log",
+			"maxLogSize": 10240000,
+			"backups": 10,
+			"category": ["metrics"],
+			"layout": 
+			{
+				"type": "messagePassThrough"
+			}
+		},	
+		
+		{
+			"type": "file",
+			"filename": "log/error.log",
+			"maxLogSize": 10240000,
+			"backups": 10,
+			"category": ["error"],
+			"layout": 
+			{
+				"type": "messagePassThrough"
+			}
+		},
+		
+		{
+			"type": "file",
+			"filename": "log/debug.log",
+			"maxLogSize": 10240000,
+			"backups": 10,
+			"category": ["debug"],
+			"layout": 
+			{
+				"type": "messagePassThrough"
+			}
+		}	
+	]
+}
