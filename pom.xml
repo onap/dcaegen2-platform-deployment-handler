@@ -28,7 +28,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
   <!--- CHANGE THE FOLLOWING 3 OBJECTS for your own repo -->
   <groupId>org.onap.dcaegen2.platform</groupId>
   <artifactId>deployment-handler</artifactId>
-  <name>deployment-handler</name>
+  <name>dcaegen2-platform-deployment-handler</name>
   <version>1.0.0-SNAPSHOT</version>
   <url>http://maven.apache.org</url>
   <properties>
