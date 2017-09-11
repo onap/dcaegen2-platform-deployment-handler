@@ -1,107 +1,100 @@
 #!/bin/bash
 
+# ================================================================================
+# Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+# ================================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END=========================================================
+#
+# ECOMP is a trademark and service mark of AT&T Intellectual Property.
+
+set -ex
+
+
 echo "running script: [$0] for module [$1] at stage [$2]"
 
-echo "=> Prepare environment "
-#env
-if [ -z "$MVN_DOCKERREG_URL" ]; then
-   MVN_DOCKERREG_URL='nexus3.onap.org:10001'
+MVN_PROJECT_MODULEID="$1"
+MVN_PHASE="$2"
+
+
+FQDN="${MVN_PROJECT_GROUPID}.${MVN_PROJECT_ARTIFACTID}"
+if [ "$MVN_PROJECT_MODULEID" == "__" ]; then
+  MVN_PROJECT_MODULEID=""
 fi
-if [ -z "$SETTINGS_FILE" ]; then
-   SETTINGS_FILE='settings.xml'
+
+if [[ "$MVN_PROJECT_VERSION" == *SNAPSHOT ]]; then
+  echo "=> for SNAPSHOT artifact build"
+  MVN_DEPLOYMENT_TYPE='SNAPSHOT'
+else
+  echo "=> for STAGING/RELEASE artifact build"
+  MVN_DEPLOYMENT_TYPE='STAGING'
 fi
+echo "MVN_DEPLOYMENT_TYPE is             [$MVN_DEPLOYMENT_TYPE]"
 
 
-TIMESTAMP=$(date +%C%y%m%dT%H%M%S) 
-export BUILD_NUMBER="${TIMESTAMP}"
+TIMESTAMP=$(date +%C%y%m%dT%H%M%S)
 
-# expected environment variables 
+# expected environment variables
 if [ -z "${MVN_NEXUSPROXY}" ]; then
     echo "MVN_NEXUSPROXY environment variable not set.  Cannot proceed"
     exit
 fi
-MVN_NEXUSPROXY_HOST=$(echo $MVN_NEXUSPROXY |cut -f3 -d'/' | cut -f1 -d':')
+MVN_NEXUSPROXY_HOST=$(echo "$MVN_NEXUSPROXY" |cut -f3 -d'/' | cut -f1 -d':')
+echo "=> Nexus Proxy at $MVN_NEXUSPROXY_HOST, $MVN_NEXUSPROXY"
 
+if [ -z "$WORKSPACE" ]; then
+    WORKSPACE=$(pwd)
+fi
 
-if [ -z "${SETTINGS_FILE}" ]; then
+if [ -z "$SETTINGS_FILE" ]; then
     echo "SETTINGS_FILE environment variable not set.  Cannot proceed"
     exit
 fi
+   
 
 
-if [  ]; then
-
-# login to all docker registries
-DOCKER_REPOSITORIES="nexus3.onap.org:10001 nexus3.onap.org:10002 nexus3.onap.org:10003 nexus3.onap.org:10004"
-for DOCKER_REPOSITORY in $DOCKER_REPOSITORIES;
-do
-    USER=$(xpath -e "//servers/server[id='$DOCKER_REPOSITORY']/username/text()" "$SETTINGS_FILE")
-    PASS=$(xpath -e "//servers/server[id='$DOCKER_REPOSITORY']/password/text()" "$SETTINGS_FILE")
-
-    if [ -z "$USER" ]; then
-        echo "Error: no user provided"
-    fi
-
-    if [ -z "$PASS" ]; then
-        echo "Error: no password provided"
-    fi
-
-    [ -z "$PASS" ] && PASS_PROVIDED="<empty>" || PASS_PROVIDED="<password>"
-    echo docker login $DOCKER_REPOSITORY -u "$USER" -p "$PASS_PROVIDED"
-    docker login $DOCKER_REPOSITORY -u "$USER" -p "$PASS"
-done
-fi
-
-# set up env variables, get ready for template resolution
-export ONAPTEMPLATE_RAWREPOURL_org_onap_dcae="${MVN_NEXUSPROXY}/content/sites/raw"
-export ONAPTEMPLATE_PYPIURL_org_onap_dcae="${MVN_NEXUSPROXY}/content/sites/pypi"
-export ONAPTEMPLATE_DOCKERREGURL_org_onap_dcae="${MVN_DOCKERREG_URL}"
-
-
-# use the version text detect which phase we are in in LF CICD process: verify, merge, or (daily) release
-LF_PHASE="verify"
-
-# mvn phase in life cycle 
+# mvn phase in life cycle
 MVN_PHASE="$2"
 
+
+echo "MVN_PROJECT_MODULEID is            [$MVN_PROJECT_MODULEID]"
+echo "MVN_PHASE is                       [$MVN_PHASE]"
+echo "MVN_PROJECT_GROUPID is             [$MVN_PROJECT_GROUPID]"
+echo "MVN_PROJECT_ARTIFACTID is          [$MVN_PROJECT_ARTIFACTID]"
+echo "MVN_PROJECT_VERSION is             [$MVN_PROJECT_VERSION]"
+echo "MVN_NEXUSPROXY is                  [$MVN_NEXUSPROXY]"
+echo "MVN_RAWREPO_BASEURL_UPLOAD is      [$MVN_RAWREPO_BASEURL_UPLOAD]"
+echo "MVN_RAWREPO_BASEURL_DOWNLOAD is    [$MVN_RAWREPO_BASEURL_DOWNLOAD]"
+MVN_RAWREPO_HOST=$(echo "$MVN_RAWREPO_BASEURL_UPLOAD" | cut -f3 -d'/' |cut -f1 -d':')
+echo "MVN_RAWREPO_HOST is                [$MVN_RAWREPO_HOST]"
+echo "MVN_RAWREPO_SERVERID is            [$MVN_RAWREPO_SERVERID]"
+echo "MVN_DOCKERREGISTRY_DAILY is        [$MVN_DOCKERREGISTRY_DAILY]"
+echo "MVN_DOCKERREGISTRY_RELEASE is      [$MVN_DOCKERREGISTRY_RELEASE]"
+
+
+source ./mvn-phase-lib.sh 
+
+
+# Customize the section below for each project
 case $MVN_PHASE in
 clean)
   echo "==> clean phase script"
+  clean_templated_files
+  rm -rf ./venv-* ./*.wgn
   ;;
 generate-sources)
   echo "==> generate-sources phase script"
-
-  TEMPLATES=$(env |grep ONAPTEMPLATE)
-  echo "====> Resolving the following template from environment variables "
-  echo "[$TEMPLATES]"
-  set -x 	#DEBUG
-  SELFFILE=$(echo $0 | rev | cut -f1 -d '/' | rev)
-  for TEMPLATE in $TEMPLATES; do
-    KEY=$(echo $TEMPLATE | cut -f1 -d'=')
-    VALUE=$(echo $TEMPLATE | cut -f2 -d'=')
-    VALUE2=$(echo $TEMPLATE | cut -f2 -d'=' |sed 's/\//\\\//g')
-    FILES=$(grep -rl "$KEY" .)
-
-    # assuming FILES is not longer than 2M bytes, the limit for variable value max size on this VM 
-    for F in $FILES; do
-       if [[ $F == *"$SELFFILE" ]]; then
-          continue
-       fi
-       echo "======> Resolving template $KEY to value $VALUE for file $F"
-       sed -i "s/{{[[:space:]]*$KEY[[:space:]]*}}/$VALUE2/g" $F
-    done 
-    
-    #if [ ! -z "$FILES" ]; then
-    #   echo "====> Resolving template $VALUE to value $VALUE"
-    #   #CMD="grep -rl \"$VALUE\" | tr '\n' '\0' | xargs -0 sed -i \"s/{{[[:space:]]*$VALUE[[:space:]]*}}/$VALUE/g\""
-    #   grep -rl "$KEY" | tr '\n' '\0' | xargs -0 sed -i 's/$KEY/$VALUE2/g'
-    #   #echo $CMD
-    #   #eval $CMD
-    #fi
-  done
-  echo "====> Done template resolving"
-  echo "====> Generate version.js file with: $(git describe --long --always)"
-  echo "exports.version=\"$(git describe --long --always)\";" > version.js
+  expand_templates
   ;;
 compile)
   echo "==> compile phase script"
@@ -111,42 +104,13 @@ test)
   ;;
 package)
   echo "==> package phase script"
-
-DOCKER_IMAGE=${MVN_DOCKERREG_URL}/dcaegen2_platform/${MVN_PROJECT_ARTIFACTID}:${MVN_PROJECT_VERSION}
-  echo "==> docker build: ${DOCKER_IMAGE}"
-  docker build -t ${DOCKER_IMAGE} .
   ;;
 install)
   echo "==> install phase script"
   ;;
 deploy)
   echo "==> deploy phase script"
-
-  # prepare credential for curl use (raw repo)
-  #PASS=$(xpath -q -e "//servers/server[id='ecomp-raw']/password/text()" "$SETTINGS_FILE")
-  #export NETRC=$(mktemp)
-  #echo "machine $MVN_NEXUSPROXY_HOST login ${USER} password ${PASS}" >> "${NETRC}"
-  #set -x; curl -k --netrc-file '${NETRC}' --upload-file '{0}' '${REPO}/{2}-{1}'
-
-
-
-  # login to all docker registries
-  USER=$(xpath -e "//servers/server[id='$MVN_DOCKERREG_URL']/username/text()" "$SETTINGS_FILE")
-  PASS=$(xpath -e "//servers/server[id='$MVN_DOCKERREG_URL']/password/text()" "$SETTINGS_FILE")
-  if [ -z "$USER" ]; then
-    echo "Error: no user provided"
-  fi
-  if [ -z "$PASS" ]; then
-    echo "Error: no password provided"
-  fi
-  [ -z "$PASS" ] && PASS_PROVIDED="<empty>" || PASS_PROVIDED="<password>"
-  echo docker login $MVN_DOCKERREG_URL -u "$USER" -p "$PASS_PROVIDED"
-  docker login $MVN_DOCKERREG_URL -u "$USER" -p "$PASS"
-
-  #docker push
-  DOCKER_IMAGE=${MVN_DOCKERREG_URL}/dcaegen2/deployment-handler:$(git describe --always)
-  echo "==> docker push: ${DOCKER_IMAGE}"
-  docker push ${DOCKER_IMAGE}
+  build_and_push_docker
   ;;
 *)
   echo "==> unprocessed phase"
