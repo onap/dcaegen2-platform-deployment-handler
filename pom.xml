@@ -29,24 +29,25 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
   <groupId>org.onap.dcaegen2.platform</groupId>
   <artifactId>deployment-handler</artifactId>
   <name>dcaegen2-platform-deployment-handler</name>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <sonar.skip>true</sonar.skip>
     <sonar.sources>.</sonar.sources>
     <!-- customize the SONARQUBE URL -->
     <!-- sonar.host.url>http://localhost:9000</sonar.host.url -->
     <!-- below are language dependent -->
     <!-- for Python -->
-    <!--
     <sonar.language>py</sonar.language>
     <sonar.pluginName>Python</sonar.pluginName>
     <sonar.inclusions>**/*.py</sonar.inclusions>
-    -->
     <!-- for JavaScaript -->
+    <!--
     <sonar.language>js</sonar.language>
     <sonar.pluginName>JS</sonar.pluginName>
     <sonar.inclusions>**/*.js</sonar.inclusions>
+    -->
   </properties>
   <build>
     <finalName>${project.artifactId}-${project.version}</finalName>
@@ -66,6 +67,14 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
           <artifactId>maven-deploy-plugin</artifactId>
           <!-- This version supports the "deployAtEnd" parameter -->
           <version>2.8</version>
+          <configuration>
+            <skip>true</skip>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>3.0.0-M1</version>
           <configuration>
             <skip>true</skip>
           </configuration>
@@ -122,6 +131,26 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
             <skipTests>true</skipTests>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.2.1</version>
+          <configuration>
+            <executable>${session.executionRootDirectory}/mvn-phase-script.sh</executable>
+            <environmentVariables>
+              <!-- make mvn properties as env for our script -->
+              <MVN_PROJECT_GROUPID>${project.groupId}</MVN_PROJECT_GROUPID>
+              <MVN_PROJECT_ARTIFACTID>${project.artifactId}</MVN_PROJECT_ARTIFACTID>
+              <MVN_PROJECT_VERSION>${project.version}</MVN_PROJECT_VERSION>
+              <MVN_NEXUSPROXY>${onap.nexus.url}</MVN_NEXUSPROXY>
+              <MVN_RAWREPO_BASEURL_UPLOAD>${onap.nexus.rawrepo.baseurl.upload}</MVN_RAWREPO_BASEURL_UPLOAD>
+              <MVN_RAWREPO_BASEURL_DOWNLOAD>${onap.nexus.rawrepo.baseurl.download}</MVN_RAWREPO_BASEURL_DOWNLOAD>
+              <MVN_RAWREPO_SERVERID>${onap.nexus.rawrepo.serverid}</MVN_RAWREPO_SERVERID>
+              <MVN_DOCKERREGISTRY_DAILY>${onap.nexus.dockerregistry.daily}</MVN_DOCKERREGISTRY_DAILY>
+              <MVN_DOCKERREGISTRY_RELEASE>${onap.nexus.dockerregistry.release}</MVN_DOCKERREGISTRY_RELEASE>
+            </environmentVariables>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -156,19 +185,10 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>${session.executionRootDirectory}/mvn-phase-script.sh</executable>
               <arguments>
-                <argument>${project.artifactId}</argument>
+                <argument>__</argument>
                 <argument>clean</argument>
               </arguments>
-              <environmentVariables>
-                <!-- make mvn properties as env for our script -->
-                <MVN_PROJECT_GROUPID>${project.groupId}</MVN_PROJECT_GROUPID>
-                <MVN_PROJECT_ARTIFACTID>${project.artifactId}</MVN_PROJECT_ARTIFACTID>
-                <MVN_PROJECT_VERSION>${project.version}</MVN_PROJECT_VERSION>
-                <MVN_NEXUSPROXY>${onap.nexus.url}</MVN_NEXUSPROXY>
-                <!--MVN_DOCKERREG_URL>${docker.push.registry}</MVN_DOCKERREG_URL-->
-              </environmentVariables>
             </configuration>
           </execution>
           <execution>
@@ -178,19 +198,10 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>mvn-phase-script.sh</executable>
               <arguments>
-                <argument>${project.artifactId}</argument>
+                <argument>__</argument>
                 <argument>generate-sources</argument>
               </arguments>
-              <environmentVariables>
-                <!-- make mvn properties as env for our script -->
-                <MVN_PROJECT_GROUPID>${project.groupId}</MVN_PROJECT_GROUPID>
-                <MVN_PROJECT_ARTIFACTID>${project.artifactId}</MVN_PROJECT_ARTIFACTID>
-                <MVN_PROJECT_VERSION>${project.version}</MVN_PROJECT_VERSION>
-                <MVN_NEXUSPROXY>${onap.nexus.url}</MVN_NEXUSPROXY>
-                <!--MVN_DOCKERREG_URL>${docker.push.registry}</MVN_DOCKERREG_URL-->
-              </environmentVariables>
             </configuration>
           </execution>
           <execution>
@@ -200,19 +211,10 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>mvn-phase-script.sh</executable>
               <arguments>
-                <argument>${project.artifactId}</argument>
+                <argument>__</argument>
                 <argument>compile</argument>
               </arguments>
-              <environmentVariables>
-                <!-- make mvn properties as env for our script -->
-                <MVN_PROJECT_GROUPID>${project.groupId}</MVN_PROJECT_GROUPID>
-                <MVN_PROJECT_ARTIFACTID>${project.artifactId}</MVN_PROJECT_ARTIFACTID>
-                <MVN_PROJECT_VERSION>${project.version}</MVN_PROJECT_VERSION>
-                <MVN_NEXUSPROXY>${onap.nexus.url}</MVN_NEXUSPROXY>
-                <!--MVN_DOCKERREG_URL>${docker.push.registry}</MVN_DOCKERREG_URL-->
-              </environmentVariables>
             </configuration>
           </execution>
           <execution>
@@ -222,19 +224,10 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>mvn-phase-script.sh</executable>
               <arguments>
-                <argument>${project.artifactId}</argument>
+                <argument>__</argument>
                 <argument>package</argument>
               </arguments>
-              <environmentVariables>
-                <!-- make mvn properties as env for our script -->
-                <MVN_PROJECT_GROUPID>${project.groupId}</MVN_PROJECT_GROUPID>
-                <MVN_PROJECT_ARTIFACTID>${project.artifactId}</MVN_PROJECT_ARTIFACTID>
-                <MVN_PROJECT_VERSION>${project.version}</MVN_PROJECT_VERSION>
-                <MVN_NEXUSPROXY>${onap.nexus.url}</MVN_NEXUSPROXY>
-                <!--MVN_DOCKERREG_URL>${docker.push.registry}</MVN_DOCKERREG_URL-->
-              </environmentVariables>
             </configuration>
           </execution>
           <execution>
@@ -244,19 +237,10 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>mvn-phase-script.sh</executable>
               <arguments>
-                <argument>${project.artifactId}</argument>
+                <argument>__</argument>
                 <argument>test</argument>
               </arguments>
-              <environmentVariables>
-                <!-- make mvn properties as env for our script -->
-                <MVN_PROJECT_GROUPID>${project.groupId}</MVN_PROJECT_GROUPID>
-                <MVN_PROJECT_ARTIFACTID>${project.artifactId}</MVN_PROJECT_ARTIFACTID>
-                <MVN_PROJECT_VERSION>${project.version}</MVN_PROJECT_VERSION>
-                <MVN_NEXUSPROXY>${onap.nexus.url}</MVN_NEXUSPROXY>
-                <!--MVN_DOCKERREG_URL>${docker.push.registry}</MVN_DOCKERREG_URL-->
-              </environmentVariables>
             </configuration>
           </execution>
           <execution>
@@ -266,19 +250,10 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>mvn-phase-script.sh</executable>
               <arguments>
-                <argument>${project.artifactId}</argument>
+                <argument>__</argument>
                 <argument>install</argument>
               </arguments>
-              <environmentVariables>
-                <!-- make mvn properties as env for our script -->
-                <MVN_PROJECT_GROUPID>${project.groupId}</MVN_PROJECT_GROUPID>
-                <MVN_PROJECT_ARTIFACTID>${project.artifactId}</MVN_PROJECT_ARTIFACTID>
-                <MVN_PROJECT_VERSION>${project.version}</MVN_PROJECT_VERSION>
-                <MVN_NEXUSPROXY>${onap.nexus.url}</MVN_NEXUSPROXY>
-                <!--MVN_DOCKERREG_URL>${docker.push.registry}</MVN_DOCKERREG_URL-->
-              </environmentVariables>
             </configuration>
           </execution>
           <execution>
@@ -288,19 +263,10 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>mvn-phase-script.sh</executable>
               <arguments>
-                <argument>${project.artifactId}</argument>
+                <argument>__</argument>
                 <argument>deploy</argument>
               </arguments>
-              <environmentVariables>
-                <!-- make mvn properties as env for our script -->
-                <MVN_PROJECT_GROUPID>${project.groupId}</MVN_PROJECT_GROUPID>
-                <MVN_PROJECT_ARTIFACTID>${project.artifactId}</MVN_PROJECT_ARTIFACTID>
-                <MVN_PROJECT_VERSION>${project.version}</MVN_PROJECT_VERSION>
-                <MVN_NEXUSPROXY>${onap.nexus.url}</MVN_NEXUSPROXY>
-                <!--MVN_DOCKERREG_URL>${docker.push.registry}</MVN_DOCKERREG_URL-->
-              </environmentVariables>
             </configuration>
           </execution>
         </executions>
