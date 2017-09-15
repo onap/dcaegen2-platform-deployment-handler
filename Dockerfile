@@ -3,11 +3,12 @@ MAINTAINER maintainer
 ENV INSROOT  /opt/app
 ENV APPUSER dh
 RUN mkdir -p ${INSROOT}/${APPUSER}/lib \
-    && mkdir -p ${INSROOT}/${APPUSER}/etc \
-      && mkdir -p ${INSROOT}/${APPUSER}/log \
-    &&  useradd -d ${INSROOT}/${APPUSER}  ${APPUSER}
+ && mkdir -p ${INSROOT}/${APPUSER}/etc \
+ && mkdir -p ${INSROOT}/${APPUSER}/log \
+ && useradd -d ${INSROOT}/${APPUSER} ${APPUSER}
 COPY *.js ${INSROOT}/${APPUSER}/
 COPY *.json ${INSROOT}/${APPUSER}/
+COPY *.yaml ${INSROOT}/${APPUSER}/
 COPY lib ${INSROOT}/${APPUSER}/lib/
 COPY etc/log4js.json ${INSROOT}/${APPUSER}/etc/log4js.json
 WORKDIR ${INSROOT}/${APPUSER}

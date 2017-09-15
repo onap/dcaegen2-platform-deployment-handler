@@ -1,16 +1,16 @@
 /*
-Copyright(c) 2017 AT&T Intellectual Property. All rights reserved. 
+Copyright(c) 2017 AT&T Intellectual Property. All rights reserved.
 
-Licensed under the Apache License, Version 2.0 (the "License"); 
+Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 
 You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, 
+Unless required by applicable law or agreed to in writing,
 software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied. 
+CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
  */
 
@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and limitations 
 
 "use strict";
 
-const API_VERSION = "4.0.0";
+const API_VERSION = "4.1.0";
 
 const fs = require('fs');
 const util = require('util');
@@ -31,26 +31,29 @@ const createError = require('./lib/dispatcher-error').createDispatcherError;
 /* Paths for API routes */
 const INFO_PATH = "/";
 const DEPLOYMENTS_PATH = "/dcae-deployments";
+const POLICY_PATH = "/policy";
+const SWAGGER_UI_PATH = "/swagger-ui";
 
 const start = function(config) {
 
 	const startTime = new Date();
-	
+
 	/*
 	 * Set log level--config will supply a default of "INFO" if not explicitly
 	 * set in config.json
 	 */
 	logging.setLevel(config.logLevel);
-	
+
 	/* Set up exported configuration */
-	config.version = require('./version').version;
 	config.apiVersion = API_VERSION;
 	config.apiLinks = {
-			info : INFO_PATH,
-			deployments: DEPLOYMENTS_PATH
+		"info" : INFO_PATH,
+		"deployments": DEPLOYMENTS_PATH,
+		"policy": POLICY_PATH,
+		"swagger-ui": SWAGGER_UI_PATH
 	};
 	exports.config = config;
-	
+
 	log.debug(null, "Configuration: " + JSON.stringify(config));
 
 	/* Set up the application */
@@ -67,6 +70,8 @@ const start = function(config) {
 	/* Set up API routes */
 	app.use(INFO_PATH, require('./lib/info'));
 	app.use(DEPLOYMENTS_PATH, require('./lib/dcae-deployments'));
+	app.use(POLICY_PATH, require('./lib/policy'));
+	app.use(SWAGGER_UI_PATH, require('./lib/swagger-ui'));
 
 	/* Set up error handling */
 	app.use(require('./lib/middleware').handleErrors);
@@ -86,11 +91,11 @@ const start = function(config) {
 				passphrase : config.ssl.passphrase
 			}, app);
 			usingTLS = true;
-		} 
+		}
 		else {
 			server = http.createServer(app);
 		}
-	} 
+	}
 	catch (e) {
 		throw (createError('Could not create http(s) server--exiting: '
 				+ e.message, 500, 'system', 551));
@@ -134,11 +139,11 @@ const logging = require('./lib/logging');
 const log = logging.getLogger();
 
 /* Get configuration and start */
-conf.configure(process.env.CONSUL_HOST)
+conf.configure()
 .then(start)
 .catch(function(e) {
 	log.error(e.logCode ? e : createError(
 			'Dispatcher exiting due to start-up problem: ' + e.message, 500,
 			'system', 552));
-	console.log("Dispatcher exiting due to startup problem: " + e.message);	
+	console.error("Dispatcher exiting due to startup problem: " + e.message);
 });
