@@ -1,0 +1,34 @@
+FROM node:6.10.3
+MAINTAINER maintainer
+ENV INSROOT /opt/app
+ENV APPUSER dh
+ENV APPDIR ${INSROOT}/${APPUSER}
+
+WORKDIR ${APPDIR}
+
+RUN mkdir -p ${APPDIR}/lib \
+ && mkdir -p ${APPDIR}/tests \
+ && mkdir -p ${APPDIR}/etc \
+ && mkdir -p ${APPDIR}/log \
+ && useradd -d ${APPDIR} ${APPUSER}
+
+COPY *.js ${APPDIR}/
+COPY *.json ${APPDIR}/
+COPY *.yaml ${APPDIR}/
+COPY ./lib/ ${APPDIR}/lib/
+COPY ./tests/ ${APPDIR}/tests/
+COPY ./etc/log4js.json ${APPDIR}/etc/log4js.json
+
+RUN npm install \
+ && chown -R ${APPUSER}:${APPUSER} ${APPDIR} \
+ && chmod 777 ${APPDIR}/lib \
+ && chmod 777 ${APPDIR}/tests \
+ && chmod 777 ${APPDIR}/log \
+ && chmod 777 ${APPDIR}/etc \
+ && ls -la && ls -la ./tests
+
+USER ${APPUSER}
+VOLUME ${APPDIR}/log
+EXPOSE 8443
+# ENTRYPOINT ["/usr/local/bin/npm", "test"]
+ENTRYPOINT ["/usr/local/bin/npm", "run", "test-cov"]

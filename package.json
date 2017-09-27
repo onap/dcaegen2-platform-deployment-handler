@@ -1,7 +1,7 @@
 {
-  "name": "DCAE-Orch-Deployment-Handler",
-  "version": "4.2.0",
-  "description": "DCAE Orchestrator Deployment Handler",
+  "name": "onap-dcae-deployment-handler",
+  "version": "4.2.1",
+  "description": "ONAP DCAE Deployment Handler",
   "main": "deployment-handler.js",
   "dependencies": {
     "adm-zip": "^0.4.7",
@@ -12,9 +12,17 @@
     "uuid": "^3.0.1",
     "yamljs": "latest"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.5.3",
+    "nock": "^9.0.21"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter spec tests/",
+    "test-ci": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec tests/",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot tests/"
   },
   "author": "author",
   "license": "(Apache-2.0)"
