@@ -30,5 +30,5 @@ RUN npm install \
 USER ${APPUSER}
 VOLUME ${APPDIR}/log
 EXPOSE 8443
-# ENTRYPOINT ["/usr/local/bin/npm", "test"]
-ENTRYPOINT ["/usr/local/bin/npm", "run", "test-cov"]
+ENTRYPOINT ["/usr/local/bin/npm", "test"]
+# ENTRYPOINT ["/usr/local/bin/npm", "run", "test-only"]

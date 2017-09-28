@@ -36,24 +36,26 @@ const SWAGGER_UI_PATH = "/swagger-ui";
 
 const app = express();
 
-/* Set up the application */
-app.set('x-powered-by', false);
-app.set('etag', false);
+const set_app = function() {
+	/* Set up the application */
+	app.set('x-powered-by', false);
+	app.set('etag', false);
 
-/* Give each request a unique request ID */
-app.use(require('./lib/middleware').assignId);
+	/* Give each request a unique request ID */
+	app.use(require('./lib/middleware').assignId);
 
-/* If authentication is set up, check it */
-app.use(require('./lib/auth').checkAuth);
+	/* If authentication is set up, check it */
+	app.use(require('./lib/auth').checkAuth);
 
-/* Set up API routes */
-app.use(INFO_PATH, require('./lib/info'));
-app.use(DEPLOYMENTS_PATH, require('./lib/dcae-deployments'));
-app.use(POLICY_PATH, require('./lib/policy'));
-app.use(SWAGGER_UI_PATH, require('./lib/swagger-ui'));
+	/* Set up API routes */
+	app.use(INFO_PATH, require('./lib/info'));
+	app.use(DEPLOYMENTS_PATH, require('./lib/dcae-deployments'));
+	app.use(POLICY_PATH, require('./lib/policy'));
+	app.use(SWAGGER_UI_PATH, require('./lib/swagger-ui'));
 
-/* Set up error handling */
-app.use(require('./lib/middleware').handleErrors);
+	/* Set up error handling */
+	app.use(require('./lib/middleware').handleErrors);
+}
 
 const start = function(config) {
 
@@ -76,6 +78,8 @@ const start = function(config) {
 	exports.config = config;
 
 	log.debug(null, "Configuration: " + JSON.stringify(config));
+
+	set_app();
 
 	/* Start the server */
 	var	server = null;
@@ -149,4 +153,5 @@ conf.configure()
 	console.error("Deployment-handler exiting due to startup problem: " + e.message);
 });
 
-module.exports = app;
+module.exports.app = app;
+module.exports.set_app = set_app;

@@ -1,6 +1,6 @@
 {
   "name": "onap-dcae-deployment-handler",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "description": "ONAP DCAE Deployment Handler",
   "main": "deployment-handler.js",
   "dependencies": {
@@ -20,7 +20,8 @@
     "nock": "^9.0.21"
   },
   "scripts": {
-    "test": "mocha --reporter spec tests/",
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter spec tests/",
+    "test-only": "mocha --reporter spec tests/",
     "test-ci": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec tests/",
     "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot tests/"
   },

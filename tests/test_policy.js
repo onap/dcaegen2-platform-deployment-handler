@@ -189,8 +189,11 @@ describe('test policy on deployment-handler', () => {
             console.log("got configuration:", JSON.stringify(config));
 
             log.debug(REQ_ID, "Configuration: " + JSON.stringify(config));
+
             const main_app = require('./../deployment-handler');
-            console.log("loaded main_app");
+            console.log("setting main_app...");
+            main_app.set_app();
+            console.log("set main_app");
 
             const req_path = "/policy/components";
             const test_txt = "GET " + req_path;
@@ -198,7 +201,7 @@ describe('test policy on deployment-handler', () => {
                 console.log(test_txt);
                 it('GET all the components with policy from cloudify', function() {
                     console.log("chai", test_txt);
-                    return chai.request(main_app).get(req_path)
+                    return chai.request(main_app.app).get(req_path)
                         .then(function(res) {
                             console.log("res for", test_txt, JSON.stringify(res.body));
                             log.debug(REQ_ID, "received " + JSON.stringify(res.body));
