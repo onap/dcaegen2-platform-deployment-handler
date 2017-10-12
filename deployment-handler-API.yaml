@@ -1,8 +1,10 @@
+---
+
 swagger: '2.0'
 
 info:
   version: "4.1.0"
-  title:  deployment-handler API
+  title: "deployment-handler API"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -38,9 +40,9 @@ paths:
                 description: |
                   version of API supported by this server
               serverVersion:
-                  type: string
-                  description: |
-                    version of software running on this server
+                type: string
+                description: |
+                  version of software running on this server
               links:
                 type: object
                 description: |
@@ -122,7 +124,7 @@ paths:
         - name: body
           in: body
           schema:
-              $ref: "#/definitions/DCAEDeploymentRequest"
+            $ref: "#/definitions/DCAEDeploymentRequest"
           required: true
 
       responses:
@@ -145,7 +147,7 @@ paths:
           description: |
             A service with the specified deployment Id already exists.  Using PUT to update the service is not a supported operation.
           schema:
-             $ref: "#/definitions/DCAEErrorResponse"
+            $ref: "#/definitions/DCAEErrorResponse"
 
         415:
           description: |
@@ -433,35 +435,35 @@ definitions:
                   URL for the service deployment
 
   DCAEPolicyBody:
-      description: policy_body - the whole object received from policy-engine
-      type: object
-      required:
-        - policyName
-        - policyVersion
-        - config
-      properties:
-        policyName:
-          description: unique policy name that contains the version and extension
-          type: string
-        policyVersion:
-          description: stringified int that is autoincremented by policy-engine
-          type: string
-        config:
-          description: the policy-config - the config data provided by policy owner
-          type: object
+    description: policy_body - the whole object received from policy-engine
+    type: object
+    required:
+      - policyName
+      - policyVersion
+      - config
+    properties:
+      policyName:
+        description: unique policy name that contains the version and extension
+        type: string
+      policyVersion:
+        description: stringified int that is autoincremented by policy-engine
+        type: string
+      config:
+        description: the policy-config - the config data provided by policy owner
+        type: object
 
   DCAEPolicy:
-      description: policy object
-      type: object
-      required:
-        - policy_id
-        - policy_body
-      properties:
-        policy_id:
-          description: unique identifier of policy regardless of its version
-          type: string
-        policy_body:
-          $ref: "#/definitions/DCAEPolicyBody"
+    description: policy object
+    type: object
+    required:
+      - policy_id
+      - policy_body
+    properties:
+      policy_id:
+        description: unique identifier of policy regardless of its version
+        type: string
+      policy_body:
+        $ref: "#/definitions/DCAEPolicyBody"
 
   DCAEPolicyRequest:
     description: request to update policies on DCAE components.
@@ -471,7 +473,7 @@ definitions:
 
     properties:
       latest_policies:
-        description: dictionary of (policy_id -> Policy object).  In example: replace additionalProp1,2,3 with policy_id1,2,3 values
+        description: "dictionary of (policy_id -> Policy object).  In example: replace additionalProp1,2,3 with policy_id1,2,3 values"
         type: object
         additionalProperties:
           $ref: "#/definitions/DCAEPolicy"
