@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a2f8d8d_4ea06a90",
+        "filename": "lib/logging.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2017-10-20T15:59:10Z",
+      "side": 1,
+      "message": "Perhaps\nreq \u003d req || {};\ninstead of if (req) {...} else {...}",
+      "revId": "e44dae66714b5ddb21cf2af17e83681c3bb1249d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a2f8d8d_ce945a39",
+        "filename": "lib/logging.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2017-10-20T15:59:10Z",
+      "side": 1,
+      "message": "rec[METRICS_REQID] \u003d req.dcaeReqId || \u0027no incoming request\u0027;",
+      "revId": "e44dae66714b5ddb21cf2af17e83681c3bb1249d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a2f8d8d_ae990e70",
+        "filename": "lib/logging.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2017-10-20T15:59:10Z",
+      "side": 1,
+      "message": "rec[METRICS_SRVNAME] \u003d req.hostname || os.hostname();",
+      "revId": "e44dae66714b5ddb21cf2af17e83681c3bb1249d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a2f8d8d_8e9e5255",
+        "filename": "lib/logging.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2017-10-20T15:59:10Z",
+      "side": 1,
+      "message": "rec[METRICS_SVCNAME] \u003d (req.method \u0026\u0026 (req.method + \u0027 \u0027 + req.originalUrl)) || \u0027no incoming request\u0027;",
+      "revId": "e44dae66714b5ddb21cf2af17e83681c3bb1249d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a2f8d8d_2ead1e89",
+        "filename": "lib/logging.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2017-10-20T15:59:10Z",
+      "side": 1,
+      "message": "should we put the same logic here for when no req or empty req ?",
+      "revId": "e44dae66714b5ddb21cf2af17e83681c3bb1249d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
