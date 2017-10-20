@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a2f8d8d_4ece2a5c",
+        "filename": "lib/logging.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2017-10-20T16:09:28Z",
+      "side": 1,
+      "message": "if you\u0027re going to do this, you may as well use\n\nreq \u003d req || { \u0027dcaeReqId\u0027: \u0027no incoming request\u0027,\n\u0027hostname\u0027: os.hostname(),\n\u0027method\u0027: \u0027no incoming request\u0027\n};\n\n(I think I got the syntax right.)",
+      "parentUuid": "1a2f8d8d_4ea06a90",
+      "revId": "e44dae66714b5ddb21cf2af17e83681c3bb1249d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a2f8d8d_ce945a39",
         "filename": "lib/logging.js",
         "patchSetId": 1
