@@ -65,7 +65,7 @@ function create_policy_body(policy_id, policy_version=1) {
         POLICY_VERSION: this_ver,
         POLICY_CONFIG: config,
         "matchingConditions": {
-            "ECOMPName": "DCAE",
+            "ONAPName": "DCAE",
             "ConfigName": "alex_config_name"
         },
         "responseAttributes": {},

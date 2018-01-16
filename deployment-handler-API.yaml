@@ -3,7 +3,7 @@
 swagger: '2.0'
 
 info:
-  version: "4.1.0"
+  version: "4.2.0"
   title: "deployment-handler API"
   license:
     name: "Apache 2.0"
@@ -469,11 +469,26 @@ definitions:
     description: request to update policies on DCAE components.
     type: object
     required:
+      - catch_up
       - latest_policies
+      - removed_policies
 
     properties:
+      catch_up:
+        description: "flag to indicate whether the request contains all the policies in PDP or not"
+        type: boolean
+        default: false
+
       latest_policies:
-        description: "dictionary of (policy_id -> Policy object).  In example: replace additionalProp1,2,3 with policy_id1,2,3 values"
+        description: "dictionary of (policy_id -> DCAEPolicy object).  In example: replace additionalProp1,2,3 with policy_id1,2,3 values"
         type: object
+        default: {}
+        additionalProperties:
+          $ref: "#/definitions/DCAEPolicy"
+
+      removed_policies:
+        description: "dictionary of (policy_id -> DCAEPolicy object).  In example: replace additionalProp1,2,3 with policy_id1,2,3 values"
+        type: object
+        default: {}
         additionalProperties:
           $ref: "#/definitions/DCAEPolicy"
