@@ -1,5 +1,5 @@
 FROM node:6.10.3
-MAINTAINER maintainer
+
 ENV INSROOT /opt/app
 ENV APPUSER dh
 ENV APPDIR ${INSROOT}/${APPUSER}

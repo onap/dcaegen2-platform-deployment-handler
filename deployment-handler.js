@@ -75,7 +75,7 @@ const start = function(config) {
 		"policy": POLICY_PATH,
 		"swagger-ui": SWAGGER_UI_PATH
 	};
-	exports.config = config;
+	process.mainModule.exports.config = config;
 
 	log.debug(null, "Configuration: " + JSON.stringify(config));
 
@@ -154,4 +154,3 @@ conf.configure()
 });
 
 module.exports.app = app;
-module.exports.set_app = set_app;

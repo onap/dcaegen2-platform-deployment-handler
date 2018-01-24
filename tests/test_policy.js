@@ -1,5 +1,5 @@
 /*
-Copyright(c) 2017 AT&T Intellectual Property. All rights reserved.
+Copyright(c) 2018 AT&T Intellectual Property. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,20 +20,18 @@ See the License for the specific language governing permissions and limitations 
 
 "use strict";
 
-const nock = require('nock');
-const chai = require('chai')
+const nock = require('nock')
+    , chai = require('chai')
     , chaiHttp = require('chai-http')
-    , expect = chai.expect;
+    , expect = chai.expect
+    , assert = chai.assert;
 
 chai.use(chaiHttp);
 
-const REQ_ID = "111";
+const dh = require('./mock_deployment_handler');
+
 const RUN_TS = new Date();
 const RUN_TS_HOURS = RUN_TS.getHours();
-
-const CONSUL_URL = 'http://consul:8500';
-const TEST_CLOUDIFY_MANAGER = "test_cloudify_manager";
-const CLOUDIFY_URL = "http://" + TEST_CLOUDIFY_MANAGER + ":80";
 
 const POLICY_ID = 'policy_id';
 const POLICY_VERSION = "policyVersion";
@@ -80,46 +78,7 @@ function create_policy(policy_id, policy_version=1) {
     };
 }
 
-nock(CONSUL_URL).persist().get('/v1/kv/deployment_handler?raw')
-    .reply(200, {"logLevel": "DEBUG", "cloudify": {"protocol": "http"}});
-
-nock(CONSUL_URL).persist().get('/v1/catalog/service/cloudify_manager')
-    .reply(200, [{
-        "ID":"deadbeef-dead-beef-dead-beefdeadbeef",
-        "Node":"devorcl00",
-        "Address": TEST_CLOUDIFY_MANAGER,
-        "Datacenter":"rework-central",
-        "TaggedAddresses":{"lan": TEST_CLOUDIFY_MANAGER,"wan": TEST_CLOUDIFY_MANAGER},
-        "NodeMeta":{},
-        "ServiceID":"cloudify_manager",
-        "ServiceName":"cloudify_manager",
-        "ServiceTags":["http://" + TEST_CLOUDIFY_MANAGER + "/api/v2.1"],
-        "ServiceAddress": TEST_CLOUDIFY_MANAGER,
-        "ServicePort":80,
-        "ServiceEnableTagOverride":false,
-        "CreateIndex":16,
-        "ModifyIndex":16
-    }]);
-
-nock(CONSUL_URL).persist().get('/v1/catalog/service/inventory')
-    .reply(200, [{
-        "ID": "",
-        "Node": "inventory_test",
-        "Address": "inventory",
-        "Datacenter": "rework-central",
-        "TaggedAddresses": null,
-        "NodeMeta": null,
-        "ServiceID": "inventory",
-        "ServiceName": "inventory",
-        "ServiceTags": [],
-        "ServiceAddress": "inventory",
-        "ServicePort": 8080,
-        "ServiceEnableTagOverride": false,
-        "CreateIndex": 8068,
-        "ModifyIndex": 8068
-    }]);
-
-nock(CLOUDIFY_URL).persist().get(/[/]api[/]v2[.]1[/]node-instances/)
+nock(dh.CLOUDIFY_URL).persist().get(/[/]api[/]v2[.]1[/]node-instances/)
     .reply(200, {
         "items": [
             {
@@ -162,63 +121,27 @@ nock(CLOUDIFY_URL).persist().get(/[/]api[/]v2[.]1[/]node-instances/)
                 "size": 10000
             }
         }
-    });
+    }
+);
 
-describe('test policy on deployment-handler', () => {
-    it('starting', function() {
-        console.log("go testing deployment-handler");
-
-        const conf = require('./../lib/config');
-        const logging = require('./../lib/logging');
-        const log = logging.getLogger();
-
-        console.log("started logger");
-        log.debug(REQ_ID, "started logger");
-
-        console.log("conf.configure");
-
-        return conf.configure()
-        .then(function(config) {
-            logging.setLevel(config.logLevel);
-
-            /* Set up exported configuration */
-            config.apiLinks = {"test" : true};
-            // exports.config = config;
-            process.mainModule.exports.config = config;
-
-            console.log("got configuration:", JSON.stringify(config));
-
-            log.debug(REQ_ID, "Configuration: " + JSON.stringify(config));
-
-            const main_app = require('./../deployment-handler');
-            console.log("setting main_app...");
-            main_app.set_app();
-            console.log("set main_app");
-
-            const req_path = "/policy/components";
-            const test_txt = "GET " + req_path;
-            describe(test_txt, () => {
-                console.log(test_txt);
-                it('GET all the components with policy from cloudify', function() {
-                    console.log("chai", test_txt);
-                    return chai.request(main_app.app).get(req_path)
-                        .then(function(res) {
-                            console.log("res for", test_txt, JSON.stringify(res.body));
-                            log.debug(REQ_ID, "received " + JSON.stringify(res.body));
-                            expect(res).to.have.status(200);
-                            expect(res).to.be.json;
-                        })
-                        .catch(function(err) {
-                            console.error("err for", test_txt, err);
-                            throw err;
-                        });
+function test_get_policy_components(dh_server) {
+    const req_path = "/policy/components";
+    const test_txt = "GET " + req_path;
+    describe(test_txt, () => {
+        console.log(test_txt);
+        it('GET all the components with policy from cloudify', function() {
+            return chai.request(dh_server.app).get(req_path)
+                .then(function(res) {
+                    console.log("res for", test_txt, res.text);
+                    expect(res).to.have.status(200);
+                    expect(res).to.be.json;
+                })
+                .catch(function(err) {
+                    console.error("err for", test_txt, err);
+                    throw err;
                 });
-            });
-        })
-        .catch(function(e) {
-            const error = "test of deployment-handler exiting due to startup problem: " + e.message;
-            console.error(error);
-            throw e;
         });
     });
-});
+}
+
+dh.add_tests([test_get_policy_components]);
