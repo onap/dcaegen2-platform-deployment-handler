@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_e017e143",
+        "filename": "package.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-03-30T21:35:12Z",
+      "side": 1,
+      "message": "you should also change the pom.xml and properties files as well",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "334db2b8895b416c96afaa99b1dd2cac11f298af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
