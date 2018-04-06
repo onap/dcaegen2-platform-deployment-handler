@@ -28,16 +28,18 @@ const chai = require('chai')
 chai.use(chaiHttp);
 
 const dh = require('./mock_deployment_handler');
+const utils = require('./mock_utils');
 
 function test_get_info(dh_server) {
     const req_path = "/";
     const test_txt = "GET " + req_path;
     describe(test_txt, () => {
-        console.log(test_txt);
         it('GET info', function() {
+            const action_timer = new utils.ActionTimer();
+            console.log(action_timer.step, test_txt);
             return chai.request(dh_server.app).get(req_path)
                 .then(function(res) {
-                    console.log("res for", test_txt, res.text);
+                    console.log(action_timer.step, "res for", test_txt, res.text);
                     expect(res).to.have.status(200);
                     expect(res).to.be.json;
 
@@ -47,7 +49,7 @@ function test_get_info(dh_server) {
                     assert.deepEqual(config.apiLinks, info.links);
                 })
                 .catch(function(err) {
-                    console.error("err for", test_txt, err);
+                    console.error(action_timer.step, "err for", test_txt, err);
                     throw err;
                 });
         });

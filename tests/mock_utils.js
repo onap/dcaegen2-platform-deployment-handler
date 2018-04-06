@@ -23,3 +23,14 @@ module.exports.sleep = function(time) {
         resolve();
     }, time));
 };
+
+module.exports.ActionTimer = class ActionTimer {
+    constructor() {
+        this.started = Date.now();
+    }
+    get step() {
+        let num = Date.now() - this.started;
+        return ("000000" + num).slice(-Math.max(5, (""+num).length));
+    }
+};
+
