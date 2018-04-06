@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Andrew Gauld <ag1282@att.com>
+Code-Review+1: Tommy Carpenter <tommy@research.att.com>
+Code-Review+2: Lusheng Ji <lji@research.att.com>
+Submitted-by: Lusheng Ji <lji@research.att.com>
+Submitted-at: Fri, 06 Apr 2018 20:08:00 +0000
+Reviewed-on: https://gerrit.onap.org/r/41409
+Project: dcaegen2/platform/deployment-handler
+Branch: refs/heads/master
