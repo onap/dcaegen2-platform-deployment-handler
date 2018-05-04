@@ -88,7 +88,8 @@ const run_dh = function() {
                 }
             })
             .catch(function(e) {
-                const error = "test of deployment-handler exiting due to test problem: " + e.message;
+                const error = "test of deployment-handler exiting due to test problem: " + e.message
+                            + " " + (e.stack || "").replace(/\n/g, " ");
                 console.error(error);
                 throw e;
             });

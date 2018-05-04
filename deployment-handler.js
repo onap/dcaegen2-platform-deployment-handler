@@ -77,7 +77,7 @@ const start = function(config) {
 	};
 	process.mainModule.exports.config = config;
 
-	log.debug(null, "Configuration: " + JSON.stringify(config));
+	log.info(null, "Configuration: " + JSON.stringify(config));
 
 	set_app();
 
@@ -103,7 +103,7 @@ const start = function(config) {
 	}
 	catch (e) {
 		throw (createError('Could not create http(s) server--exiting: '
-				+ e.message, 500, 'system', 551));
+			+ (e.message || "") + " " + (e.stack || "").replace(/\n/g, " "), 500, 'system', 551));
 	}
 
 	server.setTimeout(0);
@@ -147,10 +147,10 @@ const log = logging.getLogger();
 conf.configure()
 .then(start)
 .catch(function(e) {
-	log.error(e.logCode ? e : createError(
-			'Deployment-handler exiting due to start-up problem: ' + e.message, 500,
-			'system', 552));
-	console.error("Deployment-handler exiting due to startup problem: " + e.message);
+	const fatal_msg = 'Deployment-handler exiting due to start-up problem: ' + (e.message || "")
+					+ " " + (e.stack || "").replace(/\n/g, " ");
+	log.error(e.logCode ? e : createError(fatal_msg, 500, 'system', 552));
+	console.error(fatal_msg);
 });
 
 module.exports.app = app;
