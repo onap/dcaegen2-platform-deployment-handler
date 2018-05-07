@@ -88,6 +88,14 @@ function create_policy(policy_id, policy_version=1, matching_conditions=null) {
     };
 }
 
+const message_catch_up = {
+    "errored_scopes": [],
+    "catch_up": true,
+    "scope_prefixes": ["DCAE_alex.Config_", "DCAE.Config_"],
+    "errored_policies": {},
+    "latest_policies": {}
+};
+
 const cloudify_node_instances = [
     {
         "deployment_id": DEPLOYMENT_ID,
@@ -239,22 +247,18 @@ function test_get_policy_components(dh_server) {
 
 function test_post_policy_catch_up(dh_server) {
     const req_path = "/policy";
-    const message = {
-        "errored_scopes": ["CLAMP.Config_"],
-        "catch_up": true,
-        "scope_prefixes": ["DCAE_alex.Config_", "DCAE.Config_"],
-        "errored_policies": {},
-        "latest_policies": {
-            [MONKEYED_POLICY_ID]: create_policy(MONKEYED_POLICY_ID, 55),
-            [MONKEYED_POLICY_ID_2]: create_policy(MONKEYED_POLICY_ID_2, 22, {"key1": "value1"}),
-            [MONKEYED_POLICY_ID_4]: create_policy(MONKEYED_POLICY_ID_4, 77, {"service": "alex_service"}),
-            [MONKEYED_POLICY_ID_5]: create_policy(MONKEYED_POLICY_ID_5, "nan_version"),
-            [MONKEYED_POLICY_ID_6]: create_policy(MONKEYED_POLICY_ID_6, 66),
-            "junk_policy": create_policy("junk_policy", "nan_version"),
-            "fail_filtered": create_policy("fail_filtered", 12, {"ONAPName": "not-match"}),
-            "fail_filtered_2": create_policy("fail_filtered_2", 32, {"ConfigName": "not-match2"}),
-            "": create_policy("", 1)
-        }
+    const message = JSON.parse(JSON.stringify(message_catch_up));
+    message.errored_scopes = ["CLAMP.Config_"];
+    message.latest_policies = {
+        [MONKEYED_POLICY_ID]: create_policy(MONKEYED_POLICY_ID, 55),
+        [MONKEYED_POLICY_ID_2]: create_policy(MONKEYED_POLICY_ID_2, 22, {"key1": "value1"}),
+        [MONKEYED_POLICY_ID_4]: create_policy(MONKEYED_POLICY_ID_4, 77, {"service": "alex_service"}),
+        [MONKEYED_POLICY_ID_5]: create_policy(MONKEYED_POLICY_ID_5, "nan_version"),
+        [MONKEYED_POLICY_ID_6]: create_policy(MONKEYED_POLICY_ID_6, 66),
+        "junk_policy": create_policy("junk_policy", "nan_version"),
+        "fail_filtered": create_policy("fail_filtered", 12, {"ONAPName": "not-match"}),
+        "fail_filtered_2": create_policy("fail_filtered_2", 32, {"ConfigName": "not-match2"}),
+        "": create_policy("", 1)
     };
     const test_txt = "POST " + req_path + " - catchup " + JSON.stringify(message);
     describe(test_txt, () => {
@@ -306,6 +310,11 @@ function test_post_policy_catch_up(dh_server) {
                     return JSON.stringify(resp_to_exe);
                 });
 
+            for (var extra_i = 1; extra_i <= 100000; extra_i++) {
+                const policy_id = "extra_" + extra_i;
+                message.latest_policies[policy_id] = create_policy(policy_id, extra_i);
+            }
+
             return chai.request(dh_server.app).post(req_path)
                 .set('content-type', 'application/json')
                 .set('X-ECOMP-RequestID', 'test_post_policy_catch_up')
@@ -324,20 +333,15 @@ function test_post_policy_catch_up(dh_server) {
                     console.error(action_timer.step, "err for", test_txt, err);
                     throw err;
                 });
-        }).timeout(30000);
+        }).timeout(60000);
     });
 }
 
 function test_fail_cfy_policy_catch_up(dh_server) {
     const req_path = "/policy";
-    const message = {
-        "errored_scopes": [],
-        "catch_up": true,
-        "scope_prefixes": ["DCAE_alex.Config_", "DCAE.Config_"],
-        "errored_policies": {},
-        "latest_policies": {
-            [MONKEYED_POLICY_ID_6]: create_policy(MONKEYED_POLICY_ID_6, 66)
-        }
+    const message = JSON.parse(JSON.stringify(message_catch_up));
+    message.latest_policies = {
+        [MONKEYED_POLICY_ID_6]: create_policy(MONKEYED_POLICY_ID_6, 66)
     };
     const test_txt = "fail POST " + req_path + " - catchup without execution_id " + JSON.stringify(message);
     describe(test_txt, () => {
@@ -384,14 +388,9 @@ function test_fail_cfy_policy_catch_up(dh_server) {
 
 function test_fail_400_cfy_policy_catch_up(dh_server) {
     const req_path = "/policy";
-    const message = {
-        "errored_scopes": [],
-        "catch_up": true,
-        "scope_prefixes": ["DCAE_alex.Config_", "DCAE.Config_"],
-        "errored_policies": {},
-        "latest_policies": {
-            [MONKEYED_POLICY_ID_6]: create_policy(MONKEYED_POLICY_ID_6, 66)
-        }
+    const message = JSON.parse(JSON.stringify(message_catch_up));
+    message.latest_policies = {
+        [MONKEYED_POLICY_ID_6]: create_policy(MONKEYED_POLICY_ID_6, 66)
     };
     const test_txt = "fail 400 POST " + req_path + " - existing_running_execution_error " + JSON.stringify(message);
     describe(test_txt, () => {
@@ -433,14 +432,9 @@ function test_fail_400_cfy_policy_catch_up(dh_server) {
 
 function test_fail_404_cfy_policy_catch_up(dh_server) {
     const req_path = "/policy";
-    const message = {
-        "errored_scopes": [],
-        "catch_up": true,
-        "scope_prefixes": ["DCAE_alex.Config_", "DCAE.Config_"],
-        "errored_policies": {},
-        "latest_policies": {
-            [MONKEYED_POLICY_ID_6]: create_policy(MONKEYED_POLICY_ID_6, 66)
-        }
+    const message = JSON.parse(JSON.stringify(message_catch_up));
+    message.latest_policies = {
+        [MONKEYED_POLICY_ID_6]: create_policy(MONKEYED_POLICY_ID_6, 66)
     };
     const test_txt = "fail 404 POST " + req_path + " - not_found_error " + JSON.stringify(message);
     describe(test_txt, () => {
