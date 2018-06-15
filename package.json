@@ -1,6 +1,6 @@
 {
   "name": "onap-dcae-deployment-handler",
-  "version": "4.4.5",
+  "version": "4.5.0",
   "description": "ONAP DCAE Deployment Handler",
   "main": "deployment-handler.js",
   "dependencies": {

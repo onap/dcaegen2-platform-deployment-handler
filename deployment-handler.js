@@ -1,5 +1,5 @@
 /*
-Copyright(c) 2017 AT&T Intellectual Property. All rights reserved.
+Copyright(c) 2017-2018 AT&T Intellectual Property. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and limitations 
 
 "use strict";
 
-const API_VERSION = "4.2.0";
+const API_VERSION = "4.3.0";
 
 const fs = require('fs');
 const util = require('util');
@@ -78,6 +78,7 @@ const start = function(config) {
 	process.mainModule.exports.config = config;
 
 	log.info(null, "Configuration: " + JSON.stringify(config));
+	console.log( (new Date()) + ": Configuration: " + JSON.stringify(config, undefined, 2) );
 
 	set_app();
 
@@ -119,9 +120,11 @@ const start = function(config) {
 	/* Set up handling for terminate signal */
 	process.on('SIGTERM', function() {
 		var startTime = new Date();
-		log.metrics(null, {startTime: startTime, complete: true}, "Deployment Handler API shutting down.")
+		log.metrics(null, {startTime: startTime, complete: true}, "Deployment Handler API shutting down.");
+		console.log( "startTime: " + startTime + ": Deployment Handler API shutting down." )
 		server.close(function() {
-			log.metrics(null, {startTime: startTime, complete: true}, "Deployment Handler API server shut down.")
+			log.metrics(null, {startTime: startTime, complete: true}, "Deployment Handler API server shut down.");
+			console.log( "startTime: " + startTime + ": Deployment Handler API shutting down" )
 		});
 	});
 
@@ -134,7 +137,8 @@ const start = function(config) {
 	process.on('beforeExit', function() {
 		if (!loggedExit) {
 			loggedExit = true;
-			log.metrics(null, {startTime: startTime, complete: true}, "Deployment Handler process exiting.")
+			log.metrics(null, {startTime: startTime, complete: true}, "Deployment Handler process exiting.");
+			console.log( "startTime: " + startTime + ": Deployment Handler process exiting." )
 		}
 	});
 };
