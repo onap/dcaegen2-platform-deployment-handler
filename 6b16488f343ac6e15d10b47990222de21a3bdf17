@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_e9f7d7d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-15T22:13:09Z",
+      "side": 1,
+      "message": "I do not see any optimization here.  Could you be more specific about the changes ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 10
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_09f323e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-15T22:13:09Z",
+      "side": 1,
+      "message": "Could you also include the unit tests for your changes and the code coverage since sonar does not cover node.js ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_a901cfb0",
+        "filename": "deployment-handler-API.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-15T22:13:09Z",
+      "side": 1,
+      "message": "AIC is not part of ONAP",
+      "range": {
+        "startLine": 142,
+        "startChar": 12,
+        "endLine": 142,
+        "endChar": 15
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_c9fc5bb8",
+        "filename": "deployment-handler-API.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-15T22:13:09Z",
+      "side": 1,
+      "message": "AIC is not part of ONAP",
+      "range": {
+        "startLine": 269,
+        "startChar": 12,
+        "endLine": 269,
+        "endChar": 15
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_692bc733",
+        "filename": "deployment-handler.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-15T22:13:09Z",
+      "side": 1,
+      "message": "please use consistent indenting - \\t here as everywhere in deployment-handler",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 4
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_892e5341",
+        "filename": "deployment-handler.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-15T22:13:09Z",
+      "side": 1,
+      "message": "please use consistent indenting - \\t here as everywhere in deployment-handler",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 8
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_2925bf5b",
+        "filename": "deployment-handler.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-15T22:13:09Z",
+      "side": 1,
+      "message": "please use consistent indenting - \\t here as everywhere in deployment-handler",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 12
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_49284b33",
+        "filename": "deployment-handler.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-15T22:13:09Z",
+      "side": 1,
+      "message": "please use consistent indenting - \\t here as everywhere in deployment-handler",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 12
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_c913fbff",
+        "filename": "lib/cloudify.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-15T22:13:09Z",
+      "side": 1,
+      "message": "pointer of reqOptions is not going to changed \u003d it should be const, rather than var",
+      "range": {
+        "startLine": 218,
+        "startChar": 4,
+        "endLine": 218,
+        "endChar": 7
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_091a4318",
+        "filename": "lib/cloudify.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-15T22:13:09Z",
+      "side": 1,
+      "message": "js preferred syntax is req.query.cfy_tenent_name",
+      "range": {
+        "startLine": 226,
+        "startChar": 33,
+        "endLine": 226,
+        "endChar": 61
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_a918ef1e",
+        "filename": "lib/cloudify.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-15T22:13:09Z",
+      "side": 1,
+      "message": "repeatative code - move inside the function of addAuthToOptions and pass the req as a param",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 16
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_e91ef70c",
+        "filename": "lib/cloudify.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-15T22:13:09Z",
+      "side": 1,
+      "message": "suggestions \n#1 - pass the req to his function\n#2 - move logger.debug inside this function - that way you do not repeat the same logger.debug everywhere\n#3 shorter js-ish syntax:\nreqOptions.headers \u003d reqOptions.headers || {};\nreqOptions.headers.Tenant \u003d req.query.cfy_tenant_name || DEFAULT_TENANT;",
+      "range": {
+        "startLine": 348,
+        "startChar": 36,
+        "endLine": 366,
+        "endChar": 5
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
