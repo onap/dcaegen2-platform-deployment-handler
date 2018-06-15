@@ -78,6 +78,7 @@ const start = function(config) {
 	process.mainModule.exports.config = config;
 
 	log.info(null, "Configuration: " + JSON.stringify(config));
+    console.log( (new Date()) + ": Configuration: " + JSON.stringify(config, undefined, 2) );
 
 	set_app();
 
@@ -119,9 +120,11 @@ const start = function(config) {
 	/* Set up handling for terminate signal */
 	process.on('SIGTERM', function() {
 		var startTime = new Date();
-		log.metrics(null, {startTime: startTime, complete: true}, "Deployment Handler API shutting down.")
+		log.metrics(null, {startTime: startTime, complete: true}, "Deployment Handler API shutting down.");
+        console.log( "startTime: " + startTime + ": Deployment Handler API shutting down." )
 		server.close(function() {
-			log.metrics(null, {startTime: startTime, complete: true}, "Deployment Handler API server shut down.")
+			log.metrics(null, {startTime: startTime, complete: true}, "Deployment Handler API server shut down.");
+            console.log( "startTime: " + startTime + ": Deployment Handler API shutting down" )
 		});
 	});
 
@@ -134,7 +137,8 @@ const start = function(config) {
 	process.on('beforeExit', function() {
 		if (!loggedExit) {
 			loggedExit = true;
-			log.metrics(null, {startTime: startTime, complete: true}, "Deployment Handler process exiting.")
+			log.metrics(null, {startTime: startTime, complete: true}, "Deployment Handler process exiting.");
+            console.log( "startTime: " + startTime + ": Deployment Handler process exiting." )
 		}
 	});
 };

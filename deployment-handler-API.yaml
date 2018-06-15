@@ -137,6 +137,12 @@ paths:
           in: path
           type: string
           required: true
+        - name: cfy_tenant_name
+          description: |
+            AIC Tenant Name in Cloudify. Optional, if not specified, "default_tenant" will be used.
+          in: path
+          type: string
+          required: false
 
         - name: body
           in: body
@@ -258,6 +264,12 @@ paths:
           in: path
           type: string
           required: true
+        - name: cfy_tenant_name
+          description: |
+            AIC Tenant Name in Cloudify. Optional, if not specified, "default_tenant" will be used.
+          in: path
+          type: string
+          required: false
 
       responses:
 
@@ -304,6 +316,12 @@ paths:
         - application/json
 
       parameters:
+        - name: cfy_tenant_name
+          description: |
+            AIC Tenant Name in Cloudify. Optional, if not specified, "default_tenant" will be used.
+          in: path
+          type: string
+          required: false
         - name: body
           in: body
           schema:
@@ -321,6 +339,14 @@ paths:
       description: debug API to find policies on components
       produces:
         - application/json
+
+      parameters:
+        - name: cfy_tenant_name
+          description: |
+            AIC Tenant Name in Cloudify. Optional, if not specified, "default_tenant" will be used.
+          in: path
+          type: string
+          required: false
 
       responses:
         200:
