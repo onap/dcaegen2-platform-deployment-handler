@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_a9746f36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-06-18T03:30:33Z",
+      "side": 1,
+      "message": "Shadi - Pls change to -  Deployment Hander updates to port new feature from ECOMP",
+      "parentUuid": "5a93c517_e9f7d7d2",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 10
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_09f323e8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
