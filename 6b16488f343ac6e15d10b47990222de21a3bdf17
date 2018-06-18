@@ -141,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_091fa371",
+        "filename": "deployment-handler.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2018-06-18T13:37:28Z",
+      "side": 1,
+      "message": "Alex, what is your tab size set to?\nFrom the other code in lib and tests, it looks like you\u0027re using a tab size of 4. The code displayer in gerrit uses a tab size of 8, which is the Linux/Unix default for most uses of tab. (The code under lib and tests uses a mixture of space indentation and tab indentation, and would show up with a similar mixture of indentations in the gerrit viewer.)",
+      "parentUuid": "5a93c517_692bc733",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 4
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_892e5341",
         "filename": "deployment-handler.js",
         "patchSetId": 1
