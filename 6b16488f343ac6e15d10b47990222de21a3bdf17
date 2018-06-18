@@ -72,6 +72,29 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_acbc7d07",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-18T15:01:20Z",
+      "side": 1,
+      "message": "the max line-length on the body is 72 chars - you have 101 chars - please reformat\n\nhttps://wiki.onap.org/display/DW/Commit+Messages",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 101
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_a901cfb0",
         "filename": "deployment-handler-API.yaml",
         "patchSetId": 1
