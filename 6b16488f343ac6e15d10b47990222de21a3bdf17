@@ -141,6 +141,52 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_4c285933",
+        "filename": "deployment-handler.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-18T15:16:03Z",
+      "side": 1,
+      "message": "copyright should now be 2017-2018",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 17
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_ec1e050d",
+        "filename": "deployment-handler.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-18T15:16:03Z",
+      "side": 1,
+      "message": "you should increment the API version as well since you are changing the API",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 27
+      },
+      "revId": "6b16488f343ac6e15d10b47990222de21a3bdf17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_692bc733",
         "filename": "deployment-handler.js",
         "patchSetId": 1
