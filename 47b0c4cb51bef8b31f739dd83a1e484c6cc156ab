@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_720730ca",
+        "filename": "lib/cloudify.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-06-19T15:22:27Z",
+      "side": 1,
+      "message": "either remove cloudify.uploadBlueprint() or need another way to specify the function-action here - perhaps it is enough to have the uri",
+      "range": {
+        "startLine": 348,
+        "startChar": 33,
+        "endLine": 348,
+        "endChar": 59
+      },
+      "revId": "47b0c4cb51bef8b31f739dd83a1e484c6cc156ab",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
