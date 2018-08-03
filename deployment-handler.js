@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and limitations 
 
 "use strict";
 
-const API_VERSION = "4.3.0";
+const API_VERSION = "5.0.0";
 
 const fs = require('fs');
 const util = require('util');

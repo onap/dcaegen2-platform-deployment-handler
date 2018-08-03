@@ -32,7 +32,6 @@ const dh = require('./mock_deployment_handler');
 const utils = require('./mock_utils');
 
 const RUN_TS = new Date();
-const RUN_TS_HOURS = RUN_TS.getHours();
 
 const POLICY_ID = 'policy_id';
 const POLICY_VERSION = "policyVersion";
@@ -245,7 +244,7 @@ function test_get_policy_components(dh_server) {
     });
 }
 
-function test_post_policy_catch_up(dh_server) {
+function test_put_policy_catch_up(dh_server) {
     const req_path = "/policy";
     const message = JSON.parse(JSON.stringify(message_catch_up));
     message.errored_scopes = ["CLAMP.Config_"];
@@ -260,19 +259,19 @@ function test_post_policy_catch_up(dh_server) {
         "fail_filtered_2": create_policy("fail_filtered_2", 32, {"ConfigName": "not-match2"}),
         "": create_policy("", 1)
     };
-    const test_txt = "POST " + req_path + " - catchup " + JSON.stringify(message);
+    const test_txt = "put " + req_path + " - catchup " + JSON.stringify(message);
     describe(test_txt, () => {
-        it('POST policy-update - catchup', function() {
+        it('put policy-update - catchup', function() {
             const action_timer = new utils.ActionTimer();
             console.log(action_timer.step, test_txt);
             const execution_id = "policy_catch_up";
             const resp_to_exe = {"status": "none"};
             nock_cfy_node_instances(action_timer);
 
-            nock(dh.CLOUDIFY_URL).post(CFY_API_EXECUTIONS)
+            nock(dh.CLOUDIFY_URL).put(CFY_API_EXECUTIONS)
                 .reply(201, function(uri, requestBody) {
                     requestBody = JSON.stringify(requestBody);
-                    console.log(action_timer.step, "on_post", dh.CLOUDIFY_URL, uri, requestBody);
+                    console.log(action_timer.step, "on_put", dh.CLOUDIFY_URL, uri, requestBody);
                     Object.assign(resp_to_exe, JSON.parse(requestBody));
                     resp_to_exe.status = "pending";
                     resp_to_exe.created_at = RUN_TS;
@@ -285,7 +284,7 @@ function test_post_policy_catch_up(dh_server) {
                     resp_to_exe.parameters.operation = OPERATION_POLICY_UPDATE;
                     resp_to_exe.parameters.type_names = [];
 
-                    console.log(action_timer.step, "reply to post", dh.CLOUDIFY_URL, uri, JSON.stringify(resp_to_exe));
+                    console.log(action_timer.step, "reply to put", dh.CLOUDIFY_URL, uri, JSON.stringify(resp_to_exe));
 
                     return JSON.stringify(resp_to_exe);
                 });
@@ -315,9 +314,9 @@ function test_post_policy_catch_up(dh_server) {
                 message.latest_policies[policy_id] = create_policy(policy_id, extra_i);
             }
 
-            return chai.request(dh_server.app).post(req_path)
+            return chai.request(dh_server.app).put(req_path)
                 .set('content-type', 'application/json')
-                .set('X-ECOMP-RequestID', 'test_post_policy_catch_up')
+                .set('X-ECOMP-RequestID', 'test_put_policy_catch_up')
                 .send(message)
                 .then(function(res) {
                     console.log(action_timer.step, "res for", test_txt, res.text);
@@ -343,30 +342,30 @@ function test_fail_cfy_policy_catch_up(dh_server) {
     message.latest_policies = {
         [MONKEYED_POLICY_ID_6]: create_policy(MONKEYED_POLICY_ID_6, 66)
     };
-    const test_txt = "fail POST " + req_path + " - catchup without execution_id " + JSON.stringify(message);
+    const test_txt = "fail put " + req_path + " - catchup without execution_id " + JSON.stringify(message);
     describe(test_txt, () => {
-        it('fail POST policy-update - catchup without execution_id', function() {
+        it('fail put policy-update - catchup without execution_id', function() {
             const action_timer = new utils.ActionTimer();
             console.log(action_timer.step, test_txt);
             const execution_id = "policy_catch_up";
             const resp_to_exe = {"status": "none"};
             nock_cfy_node_instances(action_timer);
 
-            nock(dh.CLOUDIFY_URL).post(CFY_API_EXECUTIONS)
+            nock(dh.CLOUDIFY_URL).put(CFY_API_EXECUTIONS)
                 .reply(201, function(uri, requestBody) {
                     requestBody = JSON.stringify(requestBody);
-                    console.log(action_timer.step, "on_post", dh.CLOUDIFY_URL, uri, requestBody);
+                    console.log(action_timer.step, "on_put", dh.CLOUDIFY_URL, uri, requestBody);
                     Object.assign(resp_to_exe, JSON.parse(requestBody));
                     resp_to_exe.status = "pending";
 
-                    console.log(action_timer.step, "reply to post", dh.CLOUDIFY_URL, uri, JSON.stringify(resp_to_exe));
+                    console.log(action_timer.step, "reply to put", dh.CLOUDIFY_URL, uri, JSON.stringify(resp_to_exe));
 
                     return JSON.stringify(resp_to_exe);
                 });
 
-            return chai.request(dh_server.app).post(req_path)
+            return chai.request(dh_server.app).put(req_path)
                 .set('content-type', 'application/json')
-                .set('X-ECOMP-RequestID', 'test_post_policy_catch_up')
+                .set('X-ECOMP-RequestID', 'test_put_policy_catch_up')
                 .send(message)
                 .then(function(res) {
                     console.log(action_timer.step, "res for", test_txt, res.text);
@@ -392,25 +391,25 @@ function test_fail_400_cfy_policy_catch_up(dh_server) {
     message.latest_policies = {
         [MONKEYED_POLICY_ID_6]: create_policy(MONKEYED_POLICY_ID_6, 66)
     };
-    const test_txt = "fail 400 POST " + req_path + " - existing_running_execution_error " + JSON.stringify(message);
+    const test_txt = "fail 400 put " + req_path + " - existing_running_execution_error " + JSON.stringify(message);
     describe(test_txt, () => {
-        it('fail 400 POST policy-update - existing_running_execution_error', function() {
+        it('fail 400 put policy-update - existing_running_execution_error', function() {
             const action_timer = new utils.ActionTimer();
             console.log(action_timer.step, test_txt);
             const execution_id = "policy_catch_up";
             const resp_to_exe = {"error_code": "existing_running_execution_error"};
             nock_cfy_node_instances(action_timer);
 
-            nock(dh.CLOUDIFY_URL).post(CFY_API_EXECUTIONS).times(5)
+            nock(dh.CLOUDIFY_URL).put(CFY_API_EXECUTIONS).times(5)
                 .reply(400, function(uri, requestBody) {
-                    console.log(action_timer.step, "on_post", dh.CLOUDIFY_URL, uri, JSON.stringify(requestBody));
-                    console.log(action_timer.step, "reply to post", dh.CLOUDIFY_URL, uri, JSON.stringify(resp_to_exe));
+                    console.log(action_timer.step, "on_put", dh.CLOUDIFY_URL, uri, JSON.stringify(requestBody));
+                    console.log(action_timer.step, "reply to put", dh.CLOUDIFY_URL, uri, JSON.stringify(resp_to_exe));
                     return JSON.stringify(resp_to_exe);
                 });
 
-            return chai.request(dh_server.app).post(req_path)
+            return chai.request(dh_server.app).put(req_path)
                 .set('content-type', 'application/json')
-                .set('X-ECOMP-RequestID', 'test_post_policy_catch_up')
+                .set('X-ECOMP-RequestID', 'test_put_policy_catch_up')
                 .send(message)
                 .then(function(res) {
                     console.log(action_timer.step, "res for", test_txt, res.text);
@@ -436,25 +435,25 @@ function test_fail_404_cfy_policy_catch_up(dh_server) {
     message.latest_policies = {
         [MONKEYED_POLICY_ID_6]: create_policy(MONKEYED_POLICY_ID_6, 66)
     };
-    const test_txt = "fail 404 POST " + req_path + " - not_found_error " + JSON.stringify(message);
+    const test_txt = "fail 404 put " + req_path + " - not_found_error " + JSON.stringify(message);
     describe(test_txt, () => {
-        it('fail 404 POST policy-update - not_found_error', function() {
+        it('fail 404 put policy-update - not_found_error', function() {
             const action_timer = new utils.ActionTimer();
             console.log(action_timer.step, test_txt);
             const execution_id = "policy_catch_up";
             const resp_to_exe = {"error_code": "not_found_error"};
             nock_cfy_node_instances(action_timer);
 
-            nock(dh.CLOUDIFY_URL).post(CFY_API_EXECUTIONS).times(5)
+            nock(dh.CLOUDIFY_URL).put(CFY_API_EXECUTIONS).times(5)
                 .reply(404, function(uri, requestBody) {
-                    console.log(action_timer.step, "on_post", dh.CLOUDIFY_URL, uri, JSON.stringify(requestBody));
-                    console.log(action_timer.step, "reply to post", dh.CLOUDIFY_URL, uri, JSON.stringify(resp_to_exe));
+                    console.log(action_timer.step, "on_put", dh.CLOUDIFY_URL, uri, JSON.stringify(requestBody));
+                    console.log(action_timer.step, "reply to put", dh.CLOUDIFY_URL, uri, JSON.stringify(resp_to_exe));
                     return JSON.stringify(resp_to_exe);
                 });
 
-            return chai.request(dh_server.app).post(req_path)
+            return chai.request(dh_server.app).put(req_path)
                 .set('content-type', 'application/json')
-                .set('X-ECOMP-RequestID', 'test_post_policy_catch_up')
+                .set('X-ECOMP-RequestID', 'test_put_policy_catch_up')
                 .send(message)
                 .then(function(res) {
                     console.log(action_timer.step, "res for", test_txt, res.text);
@@ -476,7 +475,7 @@ function test_fail_404_cfy_policy_catch_up(dh_server) {
 
 dh.add_tests([
     test_get_policy_components,
-    test_post_policy_catch_up,
+    test_put_policy_catch_up,
     test_fail_cfy_policy_catch_up,
     test_fail_400_cfy_policy_catch_up,
     test_fail_404_cfy_policy_catch_up
