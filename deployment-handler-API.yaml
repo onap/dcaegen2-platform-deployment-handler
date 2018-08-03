@@ -20,7 +20,7 @@
 swagger: '2.0'
 
 info:
-  version: "4.3.0"
+  version: "5.0.0"
   title: "deployment-handler API"
   license:
     name: "Apache 2.0"
@@ -140,7 +140,7 @@ paths:
         - name: cfy_tenant_name
           description: |
             Tenant Name in Cloudify. Optional, if not specified, "default_tenant" will be used.
-          in: path
+          in: query
           type: string
           required: false
 
@@ -267,7 +267,7 @@ paths:
         - name: cfy_tenant_name
           description: |
             Tenant Name in Cloudify. Optional, if not specified, "default_tenant" will be used.
-          in: path
+          in: query
           type: string
           required: false
 
@@ -305,7 +305,28 @@ paths:
             $ref: "#/definitions/DCAEErrorResponse"
 
   /policy:
-    post:
+    get:
+      tags:
+        - "policy"
+      description: debug API to find deployed policies and policy-filters on components
+      produces:
+        - application/json
+
+      parameters:
+        - name: cfy_tenant_name
+          description: |
+            Tenant Name in Cloudify. Optional, if not specified, "default_tenant" will be used.
+          in: query
+          type: string
+          required: false
+
+      responses:
+        200:
+          description: policies and policy_filters found on deployed components
+          schema:
+            $ref: "#/definitions/DCAEPoliciesResponse"
+
+    put:
       tags:
         - "policy"
       description: policy update API consumed by policy-handler
@@ -319,18 +340,20 @@ paths:
         - name: cfy_tenant_name
           description: |
             Tenant Name in Cloudify. Optional, if not specified, "default_tenant" will be used.
-          in: path
+          in: query
           type: string
           required: false
         - name: body
           in: body
           schema:
-            $ref: "#/definitions/DCAEPolicyRequest"
+            $ref: "#/definitions/DCAEPolicyUpdateRequest"
           required: true
 
       responses:
         200:
           description: deployment-handler always responds with ok to /policy before processing the request
+          schema:
+            $ref: "#/definitions/DCAEPolicyUpdateResponse"
 
   /policy/components:
     get:
@@ -344,7 +367,7 @@ paths:
         - name: cfy_tenant_name
           description: |
             Tenant Name in Cloudify. Optional, if not specified, "default_tenant" will be used.
-          in: path
+          in: query
           type: string
           required: false
 
@@ -508,17 +531,28 @@ definitions:
       policy_body:
         $ref: "#/definitions/DCAEPolicyBody"
 
-  DCAEPolicyRequest:
+  DCAEPolicyMatchToFilters:
+    description:  |
+      collection of policy-filter-ids the policy matches to
+      dictionary of (policy_filter_id -> true)
+      In example: replace additionalProp1,2,3 with policy_filter_id1,2,3 values
+    type: object
+    default: {}
+    additionalProperties:
+      type: boolean
+
+  DCAEPolicyUpdateRequest:
     description: request to update policies on DCAE components.
     type: object
     required:
       - catch_up
       - latest_policies
       - removed_policies
+      - policy_filter_matches
 
     properties:
       catch_up:
-        description: flag to indicate whether the request contains all the policies in PDP or not
+        description: indicates whether the request contains the policies for catch_up event
         type: boolean
         default: false
 
@@ -541,28 +575,123 @@ definitions:
         additionalProperties:
           type: boolean
 
-      errored_policies:
+      policy_filter_matches:
         description: |
-          whether policy-engine returned an error on the policy.
-          dictionary of (policy_id -> true).
+          whether latest policy matches to policy-filters
+          dictionary of (policy_id -> DCAEPolicyMatchToFilters).
           In example: replace additionalProp1,2,3 with policy_id1,2,3 values
         type: object
         default: {}
         additionalProperties:
+          $ref: "#/definitions/DCAEPolicyMatchToFilters"
+
+  DCAEPolicyUpdateResponse:
+    description: response to update policies on DCAE components.
+    type: object
+    properties:
+      server_instance_uuid:
+        description: uuid of the deployment-handler instance
+        type: string
+
+
+  DCAEPolicyTopInfo:
+    description: |
+      single policy-info object that contains policy_id
+      and the collection of policy-versions along with the indicator
+      that at least one deployment that contains that policy is busy with execution
+    type: object
+    required:
+      - policy_id
+      - policy_versions
+      - pending_update
+
+    properties:
+      policy_id:
+        description: unique identifier of policy regardless of its version
+        type: string
+      policy_versions:
+        description: |
+          dictionary of (policy_version -> true).
+          In example: replace additionalProp1,2,3 with "1","2","3" keys
+          For instance {"1":true, "3":true}
+        type: object
+        default: {}
+        additionalProperties:
           type: boolean
+      pending_update:
+        description: |
+          boolean indicating whether there are any executions are in place
+          for any of deployments that have this policy
+        type: boolean
 
-      errored_scopes:
-        description: >
-          on cartchup - list of policy scope_prefix values on wchich
-          the policy-engine experienced an error other than not-found data.
-        type: array
-        items:
-          type: string
+  DCAEPolicyFilter:
+    description: single policy-filter object
+    type: object
+    required:
+      - policy_filter_id
+      - policy_filter
+      - pending_update
 
-      scope_prefixes:
-        description: >
-          on catchup - list of all scope_prefixes used by the policy-handler
-          to retrieve the policies from policy-engine.
-        type: array
-        items:
-          type: string
+    properties:
+      policy_filter_id:
+        description: unique identifier of deployed policy-filter
+        type: string
+      policy_filter:
+        description: policy-filter contains fields used in /getConfig on policy-engine API
+        type: object
+        properties:
+          policyName:
+            description: string or regular expression to match policyName in policy-engine
+            type: string
+          unique:
+            description: whether expected unique or not policy in policy-engine
+            type: boolean
+          onapName:
+            description: name of ONAP system for the policy in policy-engine
+            type: string
+          configName:
+            description: name of ONAP system for the policy in policy-engine
+            type: string
+          configAttributes:
+            description: dictionary of (key -> value) pairs used to match the policy
+            type: object
+            default: {}
+            additionalProperties:
+              type: string
+
+      pending_update:
+        description: |
+          boolean indicating whether there are any executions are in place
+          for any of deployments that have this policy
+        type: boolean
+
+  DCAEPoliciesResponse:
+    description: response to get /policy
+    type: object
+    required:
+      - server_instance_uuid
+      - policies
+      - policy_filters
+
+    properties:
+      server_instance_uuid:
+        description: uuid of the deployment-handler instance
+        type: string
+
+      policies:
+        description: |
+          dictionary of (policy_id -> DCAEPolicyTopInfo object).
+          In example: replace additionalProp1,2,3 with policy_id1,2,3 values
+        type: object
+        default: {}
+        additionalProperties:
+          $ref: "#/definitions/DCAEPolicyTopInfo"
+
+      policy_filters:
+        description: |
+          dictionary of (policy_filter_id -> DCAEPolicyFilter object).
+          In example: replace additionalProp1,2,3 with policy_id1,2,3 values
+        type: object
+        default: {}
+        additionalProperties:
+          $ref: "#/definitions/DCAEPolicyFilter"
