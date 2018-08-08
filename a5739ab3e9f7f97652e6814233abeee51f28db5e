@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_b8c71612",
+        "filename": "lib/policy.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-08-08T14:36:15Z",
+      "side": 1,
+      "message": "why not just !is_policy_update_in_filters?",
+      "range": {
+        "startLine": 165,
+        "startChar": 25,
+        "endLine": 165,
+        "endChar": 62
+      },
+      "revId": "a5739ab3e9f7f97652e6814233abeee51f28db5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
