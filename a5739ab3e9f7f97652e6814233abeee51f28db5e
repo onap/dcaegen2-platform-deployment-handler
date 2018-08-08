@@ -22,6 +22,30 @@
       "revId": "a5739ab3e9f7f97652e6814233abeee51f28db5e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_935c7d27",
+        "filename": "lib/policy.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-08-08T15:09:47Z",
+      "side": 1,
+      "message": "excellent question !\n\nhere it is important to differentiate the returned value of \n1. null \u003d\u003d policy is not listed in the filters of the policy-update message, so we do not want to remove this policy from deployment\n\n2. versus actual boolean false \u003d\u003d policy is listed in filters of the policy-update message, but the there is no intersection between the deployed filters and the filters in the policy-update message - the case when the policy matching to the filter changed and the policy does not match to the filter anymore \u003d\u003e we need to remove that policy from deployment.\n\nhmmm - it looks like i would need to fix the counter-part in policy-handler to always have at least an empty policy_filter_matches for the policy_id when the deployed policy was matching to filter, but the updated policy does not anymore",
+      "parentUuid": "1a76adc5_b8c71612",
+      "range": {
+        "startLine": 165,
+        "startChar": 25,
+        "endLine": 165,
+        "endChar": 62
+      },
+      "revId": "a5739ab3e9f7f97652e6814233abeee51f28db5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
