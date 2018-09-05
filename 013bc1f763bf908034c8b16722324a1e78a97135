@@ -16,6 +16,29 @@
       "revId": "013bc1f763bf908034c8b16722324a1e78a97135",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f021a24d",
+        "filename": "lib/deploy.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-09-05T20:07:58Z",
+      "side": 1,
+      "message": "this .then() is orphaned because you removed the promise - that will be a runtime syntax crash - should that be result.then() at least ?",
+      "range": {
+        "startLine": 156,
+        "startChar": 2,
+        "endLine": 156,
+        "endChar": 18
+      },
+      "revId": "013bc1f763bf908034c8b16722324a1e78a97135",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
