@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_8d96193e",
+        "filename": "lib/deploy.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4015
+      },
+      "writtenOn": "2018-09-05T18:45:29Z",
+      "side": 1,
+      "message": "What happens if the createDeployment operations fails or times out/takes a long time to finish? I don\u0027t see these conditions addressed.",
+      "revId": "013bc1f763bf908034c8b16722324a1e78a97135",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
