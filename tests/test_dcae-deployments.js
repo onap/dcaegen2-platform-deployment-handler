@@ -174,6 +174,23 @@ const Cloudify = {
             "blueprint_id": blueprint_id || deployment_id
         };
     },
+    resp_dep_creation: function(deployment_id) {
+        return {
+            "items": [
+                {
+                    "status": "terminated",
+                    "id": "ee6b0d21-0257-46a3-bb83-6f61f9ab5f99"
+                }
+            ],
+            "metadata": {
+                "pagination": {
+                    "total": 1,
+                    "offset": 0,
+                    "size": 10000
+                }
+            }
+        };
+    },
     resp_execution: function(deployment_id, blueprint_id, execution_id, terminated, workflow_id) {
         return {
             "status": (terminated && "terminated") || "pending",
@@ -404,6 +421,12 @@ function test_put_dcae_deployments_success(dh_server) {
                 .reply(201, function(uri, requestBody) {
                     console.log(action_timer.step, "put", dh.CLOUDIFY_URL, uri, JSON.stringify(requestBody));
                     return JSON.stringify(Cloudify.resp_deploy(DEPLOYMENT_ID_JFL_1, DEPLOYMENT_ID_JFL_1, message.inputs));
+                });
+
+            nock(dh.CLOUDIFY_URL).get("/api/v2.1/executions?deployment_id=" + DEPLOYMENT_ID_JFL_1 + "&workflow_id=create_deployment_environment&_include=id,status")
+                .reply(200, function(uri) {
+                    console.log(action_timer.step, "get", dh.CLOUDIFY_URL, uri);
+                    return JSON.stringify(Cloudify.resp_dep_creation(DEPLOYMENT_ID_JFL_1));
                 });
 
             nock(dh.CLOUDIFY_URL).post("/api/v2.1/executions")
