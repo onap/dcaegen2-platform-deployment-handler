@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_68e599da",
+        "filename": "lib/cloudify.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-09-10T16:23:28Z",
+      "side": 1,
+      "message": "can be const",
+      "range": {
+        "startLine": 219,
+        "startChar": 4,
+        "endLine": 219,
+        "endChar": 7
+      },
+      "revId": "2e757f185f8598fa54ca0115b5f86a44f62f6ecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_88ea75aa",
+        "filename": "lib/cloudify.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-09-10T16:23:28Z",
+      "side": 1,
+      "message": "can be const",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 7
+      },
+      "revId": "2e757f185f8598fa54ca0115b5f86a44f62f6ecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_28d32105",
+        "filename": "lib/deploy.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-09-10T16:23:28Z",
+      "side": 1,
+      "message": "this .then() can and should be moved up one level",
+      "range": {
+        "startLine": 155,
+        "startChar": 2,
+        "endLine": 155,
+        "endChar": 19
+      },
+      "revId": "2e757f185f8598fa54ca0115b5f86a44f62f6ecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
