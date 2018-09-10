@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_4801bd36",
+        "filename": "lib/cloudify.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 4015
+      },
+      "writtenOn": "2018-09-10T16:44:38Z",
+      "side": 1,
+      "message": "I was following the convention that\u0027s already in place; like for: \nconst getDeploymentCreationResult \u003d function(mainReq, deployment_id) {\n\nwhich also uses repeat.repeatWhile with the 2 argument functions as var\u0027s",
+      "parentUuid": "1a76adc5_68e599da",
+      "range": {
+        "startLine": 219,
+        "startChar": 4,
+        "endLine": 219,
+        "endChar": 7
+      },
+      "revId": "2e757f185f8598fa54ca0115b5f86a44f62f6ecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_88ea75aa",
         "filename": "lib/cloudify.js",
         "patchSetId": 3
@@ -59,6 +83,30 @@
       "writtenOn": "2018-09-10T16:23:28Z",
       "side": 1,
       "message": "this .then() can and should be moved up one level",
+      "range": {
+        "startLine": 155,
+        "startChar": 2,
+        "endLine": 155,
+        "endChar": 19
+      },
+      "revId": "2e757f185f8598fa54ca0115b5f86a44f62f6ecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_c8f5cd57",
+        "filename": "lib/deploy.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 4015
+      },
+      "writtenOn": "2018-09-10T16:44:38Z",
+      "side": 1,
+      "message": "I\u0027m not sure I understand. Moving line 155 up level? will this result in having 2 successive .then calls ? Can you pls how resulting code will look like?",
+      "parentUuid": "1a76adc5_28d32105",
       "range": {
         "startLine": 155,
         "startChar": 2,
