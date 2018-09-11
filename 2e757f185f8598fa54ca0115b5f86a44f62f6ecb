@@ -211,6 +211,30 @@
       "revId": "2e757f185f8598fa54ca0115b5f86a44f62f6ecb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_c7b6133e",
+        "filename": "lib/deploy.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 4015
+      },
+      "writtenOn": "2018-09-11T17:31:57Z",
+      "side": 1,
+      "message": "I already made the changes and pushed them and just noticed this comment you added to keep previous code. However, the changes you mentioned work fine and I can run deployment handler fine with your suggested changes and verified against cloudify that deployment creation status polling works fine. I can reverse the changes if you still want to.  I\u0027ll look into running the unit test coverage (I haven\u0027t done that before).",
+      "parentUuid": "1a76adc5_6cd4c4bc",
+      "range": {
+        "startLine": 155,
+        "startChar": 2,
+        "endLine": 155,
+        "endChar": 19
+      },
+      "revId": "2e757f185f8598fa54ca0115b5f86a44f62f6ecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
