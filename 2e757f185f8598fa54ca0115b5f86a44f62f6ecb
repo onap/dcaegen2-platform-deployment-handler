@@ -187,6 +187,30 @@
       "revId": "2e757f185f8598fa54ca0115b5f86a44f62f6ecb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_6cd4c4bc",
+        "filename": "lib/deploy.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-09-11T16:54:00Z",
+      "side": 1,
+      "message": "never mind my comment - it is ok to have it the way you have it and it matches to previous code",
+      "parentUuid": "1a76adc5_0cfbd0c1",
+      "range": {
+        "startLine": 155,
+        "startChar": 2,
+        "endLine": 155,
+        "endChar": 19
+      },
+      "revId": "2e757f185f8598fa54ca0115b5f86a44f62f6ecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
