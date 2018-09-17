@@ -14,10 +14,11 @@ RUN mkdir -p ${APPDIR}/lib \
 
 COPY *.js ${APPDIR}/
 COPY *.json ${APPDIR}/
+COPY *.txt ${APPDIR}/
 COPY *.yaml ${APPDIR}/
 COPY ./lib/ ${APPDIR}/lib/
 COPY ./tests/ ${APPDIR}/tests/
-COPY ./etc/log4js.json ${APPDIR}/etc/log4js.json
+COPY ./etc/ ${APPDIR}/etc/
 
 RUN npm install \
  && chown -R ${APPUSER}:${APPUSER} ${APPDIR} \
@@ -25,7 +26,8 @@ RUN npm install \
  && chmod 777 ${APPDIR}/tests \
  && chmod 777 ${APPDIR}/log \
  && chmod 777 ${APPDIR}/etc \
- && ls -la && ls -la ./tests
+ && pwd \
+ && ls -laR -Inode_modules
 
 USER ${APPUSER}
 VOLUME ${APPDIR}/log

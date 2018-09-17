@@ -26,6 +26,7 @@ const http = require('http');
 const https = require('https');
 const express = require('express');
 const conf = require('./lib/config');
+const utils = require("./lib/utils");
 const createError = require('./lib/dispatcher-error').createDispatcherError;
 
 /* Paths for API routes */
@@ -77,8 +78,8 @@ const start = function(config) {
 	};
 	process.mainModule.exports.config = config;
 
-	log.info(null, "Configuration: " + JSON.stringify(config));
-	console.log( (new Date()) + ": Configuration: " + JSON.stringify(config, undefined, 2) );
+	log.info(null, "Configuration: " + JSON.stringify(config, utils.hideSecrets));
+	console.log((new Date()) + ": Configuration: " + JSON.stringify(config, utils.hideSecrets, 2) );
 
 	set_app();
 
