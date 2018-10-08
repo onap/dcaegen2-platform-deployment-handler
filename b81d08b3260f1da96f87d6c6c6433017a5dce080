@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_e22b9d80",
+        "filename": "lib/cloudify.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-10-08T17:05:12Z",
+      "side": 1,
+      "message": "lost the \u0026_size\u003d1000 that breaks the retrieval of node-instances from cloudify",
+      "range": {
+        "startLine": 361,
+        "startChar": 24,
+        "endLine": 361,
+        "endChar": 93
+      },
+      "revId": "b81d08b3260f1da96f87d6c6c6433017a5dce080",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
