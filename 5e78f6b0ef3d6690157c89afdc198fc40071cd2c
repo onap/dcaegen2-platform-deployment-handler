@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Andrew Gauld <agauld@att.com>
+Code-Review+2: Jack Lucas <jflucas@research.att.com>
+Submitted-by: Jack Lucas <jflucas@research.att.com>
+Submitted-at: Mon, 08 Oct 2018 20:04:24 +0000
+Reviewed-on: https://gerrit.onap.org/r/70004
+Project: dcaegen2/platform/deployment-handler
+Branch: refs/heads/master
