@@ -211,7 +211,13 @@ const cloudify_node_instances = [
 ];
 
 function nock_cfy_node_instances(action_timer) {
-    nock(dh.CLOUDIFY_URL).get(CFY_API_NODE_INSTANCES).query(true)
+    // "/node-instances?_include=id,deployment_id,runtime_properties&_size=1000&_offset=0"
+    nock(dh.CLOUDIFY_URL).get(CFY_API_NODE_INSTANCES)
+        .query(params => {
+            console.log(action_timer.step, "get", dh.CLOUDIFY_URL, CFY_API_NODE_INSTANCES, JSON.stringify(params));
+            return !!(params._include === "id,deployment_id,runtime_properties"
+                      && params._size === "1000" && params._offset === "0");
+        })
         .reply(200, function(uri) {
             console.log(action_timer.step, "get", dh.CLOUDIFY_URL, uri);
             return JSON.stringify({
@@ -219,6 +225,29 @@ function nock_cfy_node_instances(action_timer) {
                 "metadata": {"pagination": {"total": cloudify_node_instances.length, "offset": 0, "size": 10000}}
             });
         });
+}
+
+function test_get_policy(dh_server) {
+    const req_path = "/policy";
+    const test_txt = "GET " + req_path;
+    describe(test_txt, () => {
+        it('GET all the policies and policy-filters from cloudify', function() {
+            const action_timer = new utils.ActionTimer();
+            console.log(action_timer.step, test_txt);
+            nock_cfy_node_instances(action_timer);
+
+            return chai.request(dh_server.app).get(req_path)
+                .then(function(res) {
+                    console.log(action_timer.step, "res for", test_txt, res.text);
+                    expect(res).to.have.status(200);
+                    expect(res).to.be.json;
+                })
+                .catch(function(err) {
+                    console.error(action_timer.step, "err for", test_txt, err);
+                    throw err;
+                });
+        });
+    });
 }
 
 function test_get_policy_components(dh_server) {
@@ -309,7 +338,7 @@ function test_put_policy_catch_up(dh_server) {
                     return JSON.stringify(resp_to_exe);
                 });
 
-            for (var extra_i = 1; extra_i <= 100000; extra_i++) {
+            for (var extra_i = 1; extra_i <= 10000; extra_i++) {
                 const policy_id = "extra_" + extra_i;
                 message.latest_policies[policy_id] = create_policy(policy_id, extra_i);
             }
@@ -474,6 +503,7 @@ function test_fail_404_cfy_policy_catch_up(dh_server) {
 }
 
 dh.add_tests([
+    test_get_policy,
     test_get_policy_components,
     test_put_policy_catch_up,
     test_fail_cfy_policy_catch_up,

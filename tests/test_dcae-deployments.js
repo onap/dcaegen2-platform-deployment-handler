@@ -174,19 +174,19 @@ const Cloudify = {
             "blueprint_id": blueprint_id || deployment_id
         };
     },
-    resp_dep_creation: function(deployment_id) {
+    resp_dep_creation: function(deployment_id, execution_id, status) {
         return {
             "items": [
                 {
-                    "status": "terminated",
-                    "id": "ee6b0d21-0257-46a3-bb83-6f61f9ab5f99"
+                    "status": (status || "terminated"),
+                    "id": (execution_id || "ee6b0d21-0257-46a3-bb83-6f61f9ab5f99")
                 }
             ],
             "metadata": {
                 "pagination": {
                     "total": 1,
                     "offset": 0,
-                    "size": 10000
+                    "size": 1000
                 }
             }
         };
@@ -385,6 +385,66 @@ function test_put_dcae_deployments_missing_input_error(dh_server) {
     });
 }
 
+function test_put_dcae_deployments_creation_failed(dh_server) {
+    const req_path = "/dcae-deployments/" + DEPLOYMENT_ID_JFL_1;
+    const message = create_main_message(INV_EXISTING_SERVICE_TYPE, true);
+    const test_txt = "fail deployment-creation PUT " + req_path + ": " + JSON.stringify(message);
+    const execution_id = "execution_" + DEPLOYMENT_ID_JFL_1;
+    describe(test_txt, () => {
+        it('fail deployment-creation', function(done) {
+            const action_timer = new utils.ActionTimer();
+            console.log(action_timer.step, test_txt);
+
+            nock(dh.INVENTORY_URL).get(INV_PATH_DCAE_SERVICES + "/" + DEPLOYMENT_ID_JFL_1)
+                .reply(404, function(uri) {
+                    console.log(action_timer.step, "get", dh.INVENTORY_URL, uri);
+                    return JSON.stringify(Inventory.resp_not_found_service(DEPLOYMENT_ID_JFL_1));
+                });
+            nock(dh.INVENTORY_URL).get(INV_PATH_DCAE_SERVICE_TYPES + INV_EXISTING_SERVICE_TYPE)
+                .reply(200, function(uri) {
+                    console.log(action_timer.step, "get", dh.INVENTORY_URL, uri);
+                    return JSON.stringify(Inventory.resp_existing_blueprint(INV_EXISTING_SERVICE_TYPE));
+                });
+            nock(dh.INVENTORY_URL).put(INV_PATH_DCAE_SERVICES + "/" + DEPLOYMENT_ID_JFL_1)
+                .reply(200, function(uri, requestBody) {
+                    console.log(action_timer.step, "put", dh.INVENTORY_URL, uri, JSON.stringify(requestBody));
+                    return JSON.stringify(Inventory.resp_put_service(DEPLOYMENT_ID_JFL_1, INV_EXISTING_SERVICE_TYPE));
+                });
+
+            nock(dh.CLOUDIFY_URL).put("/api/v2.1/blueprints/" + DEPLOYMENT_ID_JFL_1)
+                .reply(200, function(uri, requestBody) {
+                    console.log(action_timer.step, "put", dh.CLOUDIFY_URL, uri, JSON.stringify(requestBody));
+                    return JSON.stringify(Cloudify.resp_blueprint(DEPLOYMENT_ID_JFL_1));
+                });
+
+            nock(dh.CLOUDIFY_URL).put("/api/v2.1/deployments/" + DEPLOYMENT_ID_JFL_1)
+                .reply(201, function(uri, requestBody) {
+                    console.log(action_timer.step, "put", dh.CLOUDIFY_URL, uri, JSON.stringify(requestBody));
+                    return JSON.stringify(Cloudify.resp_deploy(DEPLOYMENT_ID_JFL_1, DEPLOYMENT_ID_JFL_1, message.inputs));
+                });
+
+            nock(dh.CLOUDIFY_URL).get("/api/v2.1/executions?deployment_id=" + DEPLOYMENT_ID_JFL_1 + "&workflow_id=create_deployment_environment&_include=id,status")
+                .reply(200, function(uri) {
+                    console.log(action_timer.step, "get", dh.CLOUDIFY_URL, uri);
+                    return JSON.stringify(Cloudify.resp_dep_creation(DEPLOYMENT_ID_JFL_1, execution_id, "failed"));
+                });
+
+            chai.request(dh_server.app).put(req_path)
+                .set('content-type', 'application/json')
+                .send(message)
+                .end(function(err, res) {
+                    console.log(action_timer.step, "res for", test_txt, res.text);
+                    expect(res).to.have.status(500);
+                    expect(res.body).to.have.property('message');
+                    expect(res.body.message).to.be.equal(
+                        'Status 502 from CM API -- error code: UNKNOWN -- message: deployment_id('
+                      + DEPLOYMENT_ID_JFL_1 + '): deployment creation failed -- no error information');
+                    done();
+                });
+        }).timeout(50000);
+    });
+}
+
 function test_put_dcae_deployments_success(dh_server) {
     const req_path = "/dcae-deployments/" + DEPLOYMENT_ID_JFL_1;
     const message = create_main_message(INV_EXISTING_SERVICE_TYPE, true);
@@ -426,7 +486,7 @@ function test_put_dcae_deployments_success(dh_server) {
             nock(dh.CLOUDIFY_URL).get("/api/v2.1/executions?deployment_id=" + DEPLOYMENT_ID_JFL_1 + "&workflow_id=create_deployment_environment&_include=id,status")
                 .reply(200, function(uri) {
                     console.log(action_timer.step, "get", dh.CLOUDIFY_URL, uri);
-                    return JSON.stringify(Cloudify.resp_dep_creation(DEPLOYMENT_ID_JFL_1));
+                    return JSON.stringify(Cloudify.resp_dep_creation(DEPLOYMENT_ID_JFL_1, execution_id));
                 });
 
             nock(dh.CLOUDIFY_URL).post("/api/v2.1/executions")
@@ -651,6 +711,7 @@ dh.add_tests([
     test_put_dcae_deployments_missing_input_error,
     test_get_dcae_deployments_operation,
     test_get_dcae_deployments_service_type_deployed,
+    test_put_dcae_deployments_creation_failed,
     test_put_dcae_deployments_success,
     test_delete_dcae_deployments_success
 ]);
