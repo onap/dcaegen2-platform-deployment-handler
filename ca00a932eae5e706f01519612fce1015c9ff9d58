@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Shadi Haidar <sh1986@att.com>
+Code-Review+2: Michael Hwang <mhwang@research.att.com>
+Submitted-by: Michael Hwang <mhwang@research.att.com>
+Submitted-at: Wed, 12 Dec 2018 15:24:26 +0000
+Reviewed-on: https://gerrit.onap.org/r/74339
+Project: dcaegen2/platform/deployment-handler
+Branch: refs/heads/master
