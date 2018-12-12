@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_79437742",
+        "filename": "lib/cloudify.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-12-12T15:45:56Z",
+      "side": 1,
+      "message": "this is the defense against the variety coming from cloudify",
+      "parentUuid": "9adffdf1_2e56072b",
+      "revId": "ca00a932eae5e706f01519612fce1015c9ff9d58",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_0e39c3f2",
         "filename": "lib/cloudify.js",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-12-12T15:20:54Z",
       "side": 1,
       "message": "For my novice JS benefit, I\u0027m curious to know what is the merit of changing \"var\" to \"const\" here?  This variable is locally scoped so there shouldn\u0027t be too much concern of the state getting unknowingly smashed.",
+      "revId": "ca00a932eae5e706f01519612fce1015c9ff9d58",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_39496f60",
+        "filename": "lib/cloudify.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-12-12T15:45:56Z",
+      "side": 1,
+      "message": "const is preferable when there is no intention to change the variable assignment in the scope.  In other words, when we specify var instead of const we explicitly trying to say that this variable is going to change - like a counter that increments many times.",
+      "parentUuid": "9adffdf1_0e39c3f2",
       "revId": "ca00a932eae5e706f01519612fce1015c9ff9d58",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
