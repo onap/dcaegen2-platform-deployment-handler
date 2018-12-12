@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_2e56072b",
+        "filename": "lib/cloudify.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2018-12-12T15:20:54Z",
+      "side": 1,
+      "message": "cancelled \u003d\u003d canceled right?, you have two instances representing the same state.  Is this intentional?",
+      "revId": "ca00a932eae5e706f01519612fce1015c9ff9d58",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_0e39c3f2",
+        "filename": "lib/cloudify.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2018-12-12T15:20:54Z",
+      "side": 1,
+      "message": "For my novice JS benefit, I\u0027m curious to know what is the merit of changing \"var\" to \"const\" here?  This variable is locally scoped so there shouldn\u0027t be too much concern of the state getting unknowingly smashed.",
+      "revId": "ca00a932eae5e706f01519612fce1015c9ff9d58",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
