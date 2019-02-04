@@ -1,5 +1,5 @@
 /*
-Copyright(c) 2018 AT&T Intellectual Property. All rights reserved.
+Copyright(c) 2018-2019 AT&T Intellectual Property. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ See the License for the specific language governing permissions and limitations 
  */
 
 "use strict";
+
+const fs = require("fs");
 
 const nock = require('nock')
     , chai = require('chai')
@@ -354,7 +356,7 @@ function test_put_dcae_deployments_missing_input_error(dh_server) {
                     return "";
                 });
 
-            nock(dh.CLOUDIFY_URL).put("/api/v2.1/blueprints/" + DEPLOYMENT_ID_JFL)
+            nock(dh.CLOUDIFY_URL).put(dh.CLOUDIFY_API + "/blueprints/" + DEPLOYMENT_ID_JFL)
                 .reply(200, function(uri, requestBody) {
                         console.log(action_timer.step, "put", dh.CLOUDIFY_URL, uri, JSON.stringify(requestBody));
                         return JSON.stringify(Cloudify.resp_blueprint(DEPLOYMENT_ID_JFL));
@@ -365,7 +367,7 @@ function test_put_dcae_deployments_missing_input_error(dh_server) {
                 "error_code": "missing_required_deployment_input_error",
                 "server_traceback": "Traceback blah..."
             };
-            nock(dh.CLOUDIFY_URL).put("/api/v2.1/deployments/" + DEPLOYMENT_ID_JFL)
+            nock(dh.CLOUDIFY_URL).put(dh.CLOUDIFY_API + "/deployments/" + DEPLOYMENT_ID_JFL)
                 .reply(400, function(uri) {
                         console.log(action_timer.step, "put", dh.CLOUDIFY_URL, uri);
                         return JSON.stringify(depl_rejected);
@@ -411,19 +413,19 @@ function test_put_dcae_deployments_creation_failed(dh_server) {
                     return JSON.stringify(Inventory.resp_put_service(DEPLOYMENT_ID_JFL_1, INV_EXISTING_SERVICE_TYPE));
                 });
 
-            nock(dh.CLOUDIFY_URL).put("/api/v2.1/blueprints/" + DEPLOYMENT_ID_JFL_1)
+            nock(dh.CLOUDIFY_URL).put(dh.CLOUDIFY_API + "/blueprints/" + DEPLOYMENT_ID_JFL_1)
                 .reply(200, function(uri, requestBody) {
                     console.log(action_timer.step, "put", dh.CLOUDIFY_URL, uri, JSON.stringify(requestBody));
                     return JSON.stringify(Cloudify.resp_blueprint(DEPLOYMENT_ID_JFL_1));
                 });
 
-            nock(dh.CLOUDIFY_URL).put("/api/v2.1/deployments/" + DEPLOYMENT_ID_JFL_1)
+            nock(dh.CLOUDIFY_URL).put(dh.CLOUDIFY_API + "/deployments/" + DEPLOYMENT_ID_JFL_1)
                 .reply(201, function(uri, requestBody) {
                     console.log(action_timer.step, "put", dh.CLOUDIFY_URL, uri, JSON.stringify(requestBody));
                     return JSON.stringify(Cloudify.resp_deploy(DEPLOYMENT_ID_JFL_1, DEPLOYMENT_ID_JFL_1, message.inputs));
                 });
 
-            nock(dh.CLOUDIFY_URL).get("/api/v2.1/executions?deployment_id=" + DEPLOYMENT_ID_JFL_1 + "&workflow_id=create_deployment_environment&_include=id,status")
+            nock(dh.CLOUDIFY_URL).get(dh.CLOUDIFY_API + "/executions?deployment_id=" + DEPLOYMENT_ID_JFL_1 + "&workflow_id=create_deployment_environment&_include=id,status")
                 .reply(200, function(uri) {
                     console.log(action_timer.step, "get", dh.CLOUDIFY_URL, uri);
                     return JSON.stringify(Cloudify.resp_dep_creation(DEPLOYMENT_ID_JFL_1, execution_id, "failed"));
@@ -471,37 +473,37 @@ function test_put_dcae_deployments_success(dh_server) {
                     return JSON.stringify(Inventory.resp_put_service(DEPLOYMENT_ID_JFL_1, INV_EXISTING_SERVICE_TYPE));
                 });
 
-            nock(dh.CLOUDIFY_URL).put("/api/v2.1/blueprints/" + DEPLOYMENT_ID_JFL_1)
+            nock(dh.CLOUDIFY_URL).put(dh.CLOUDIFY_API + "/blueprints/" + DEPLOYMENT_ID_JFL_1)
                 .reply(200, function(uri, requestBody) {
                     console.log(action_timer.step, "put", dh.CLOUDIFY_URL, uri, JSON.stringify(requestBody));
                     return JSON.stringify(Cloudify.resp_blueprint(DEPLOYMENT_ID_JFL_1));
                 });
 
-            nock(dh.CLOUDIFY_URL).put("/api/v2.1/deployments/" + DEPLOYMENT_ID_JFL_1)
+            nock(dh.CLOUDIFY_URL).put(dh.CLOUDIFY_API + "/deployments/" + DEPLOYMENT_ID_JFL_1)
                 .reply(201, function(uri, requestBody) {
                     console.log(action_timer.step, "put", dh.CLOUDIFY_URL, uri, JSON.stringify(requestBody));
                     return JSON.stringify(Cloudify.resp_deploy(DEPLOYMENT_ID_JFL_1, DEPLOYMENT_ID_JFL_1, message.inputs));
                 });
 
-            nock(dh.CLOUDIFY_URL).get("/api/v2.1/executions?deployment_id=" + DEPLOYMENT_ID_JFL_1 + "&workflow_id=create_deployment_environment&_include=id,status")
+            nock(dh.CLOUDIFY_URL).get(dh.CLOUDIFY_API + "/executions?deployment_id=" + DEPLOYMENT_ID_JFL_1 + "&workflow_id=create_deployment_environment&_include=id,status")
                 .reply(200, function(uri) {
                     console.log(action_timer.step, "get", dh.CLOUDIFY_URL, uri);
                     return JSON.stringify(Cloudify.resp_dep_creation(DEPLOYMENT_ID_JFL_1, execution_id));
                 });
 
-            nock(dh.CLOUDIFY_URL).post("/api/v2.1/executions")
+            nock(dh.CLOUDIFY_URL).post(dh.CLOUDIFY_API + "/executions")
                 .reply(201, function(uri, requestBody) {
                     console.log(action_timer.step, "post", dh.CLOUDIFY_URL, uri, JSON.stringify(requestBody));
                     return JSON.stringify(Cloudify.resp_execution(DEPLOYMENT_ID_JFL_1, DEPLOYMENT_ID_JFL_1, execution_id));
                 });
 
-            nock(dh.CLOUDIFY_URL).get("/api/v2.1/executions/" + execution_id)
+            nock(dh.CLOUDIFY_URL).get(dh.CLOUDIFY_API + "/executions/" + execution_id)
                 .reply(200, function(uri) {
                     console.log(action_timer.step, "get", dh.CLOUDIFY_URL, uri);
                     return JSON.stringify(Cloudify.resp_execution(DEPLOYMENT_ID_JFL_1, DEPLOYMENT_ID_JFL_1, execution_id, true));
                 });
 
-            nock(dh.CLOUDIFY_URL).get("/api/v2.1/deployments/" + DEPLOYMENT_ID_JFL_1 + "/outputs")
+            nock(dh.CLOUDIFY_URL).get(dh.CLOUDIFY_API + "/deployments/" + DEPLOYMENT_ID_JFL_1 + "/outputs")
                 .reply(200, function(uri) {
                     console.log(action_timer.step, "get", dh.CLOUDIFY_URL, uri);
                     return JSON.stringify(Cloudify.resp_outputs(DEPLOYMENT_ID_JFL_1));
@@ -536,7 +538,7 @@ function test_get_dcae_deployments_operation(dh_server) {
         it('Get operation execution succeeded', function() {
             const action_timer = new utils.ActionTimer();
             console.log(action_timer.step, test_txt);
-            nock(dh.CLOUDIFY_URL).get("/api/v2.1/executions/" + execution_id)
+            nock(dh.CLOUDIFY_URL).get(dh.CLOUDIFY_API + "/executions/" + execution_id)
                 .reply(200, function(uri) {
                     console.log(action_timer.step, "get", dh.CLOUDIFY_URL, uri);
                     return JSON.stringify(Cloudify.resp_execution(DEPLOYMENT_ID_JFL_1, DEPLOYMENT_ID_JFL_1, execution_id, true));
@@ -600,7 +602,7 @@ function test_delete_dcae_deployments_success(dh_server) {
             const action_timer = new utils.ActionTimer();
             console.log(action_timer.step, test_txt);
 
-            nock(dh.CLOUDIFY_URL).post("/api/v2.1/executions")
+            nock(dh.CLOUDIFY_URL).post(dh.CLOUDIFY_API + "/executions")
                 .reply(201, function(uri, requestBody) {
                         console.log(action_timer.step, "post", dh.CLOUDIFY_URL, uri, JSON.stringify(requestBody));
                         return JSON.stringify(Cloudify.resp_execution(DEPLOYMENT_ID_JFL_1, DEPLOYMENT_ID_JFL_1,
@@ -613,20 +615,20 @@ function test_delete_dcae_deployments_success(dh_server) {
                     return "";
                 });
 
-            nock(dh.CLOUDIFY_URL).get("/api/v2.1/executions/" + execution_id)
+            nock(dh.CLOUDIFY_URL).get(dh.CLOUDIFY_API + "/executions/" + execution_id)
                 .reply(200, function(uri) {
                         console.log(action_timer.step, "get", dh.CLOUDIFY_URL, uri);
                         return JSON.stringify(Cloudify.resp_execution(DEPLOYMENT_ID_JFL_1, DEPLOYMENT_ID_JFL_1,
                             execution_id, true, workflow_id));
                     });
 
-            nock(dh.CLOUDIFY_URL).delete("/api/v2.1/deployments/" + DEPLOYMENT_ID_JFL_1)
+            nock(dh.CLOUDIFY_URL).delete(dh.CLOUDIFY_API + "/deployments/" + DEPLOYMENT_ID_JFL_1)
                 .reply(201, function(uri) {
                     console.log(action_timer.step, "delete", dh.CLOUDIFY_URL, uri);
                     return JSON.stringify(Cloudify.resp_deploy(DEPLOYMENT_ID_JFL_1, DEPLOYMENT_ID_JFL_1));
                 });
 
-            nock(dh.CLOUDIFY_URL).delete("/api/v2.1/blueprints/" + DEPLOYMENT_ID_JFL_1)
+            nock(dh.CLOUDIFY_URL).delete(dh.CLOUDIFY_API + "/blueprints/" + DEPLOYMENT_ID_JFL_1)
                 .reply(200, function(uri) {
                     console.log(action_timer.step, "delete", dh.CLOUDIFY_URL, uri);
                     return JSON.stringify(Cloudify.resp_blueprint(DEPLOYMENT_ID_JFL_1));
@@ -667,10 +669,20 @@ function test_zipper(dh_server) {
                 for (var i=0; i< 100; i++) {
                     blueprint = blueprint + (i % 10);
                     try {
+                        const zip_folder = "zip_blueprint_" + ('0' + i).substr(-2);
+                        const zip_path = dh.LOG_PATH + zip_folder + ".zip";
+
                         const zip = new admzip();
-                        zip.addFile('work/', new Buffer(0));
-                        zip.addFile('work/blueprint.yaml', new Buffer(blueprint, 'utf8'));
+                        // no need for separate folder entry like 'work/' in zip
+                        // zip file created by admzip unzips properly in linux, but not in Windows :-(
+                        zip.addFile(zip_folder + '/blueprint.yaml', new Buffer(blueprint, 'utf8'));
                         const zip_buffer = zip.toBuffer();
+                        fs.writeFileSync(zip_path, zip_buffer);
+                        // gave up on unzipping in old ubuntu that fails to have unzip installed
+                        // uncomment the next lines if you have unzip in os to properly test
+                        // execSync('unzip ' + zip_folder + ".zip", {"cwd": dh.LOG_PATH});
+                        // const bp_from_file = fs.readFileSync(dh.LOG_PATH + zip_folder + '/blueprint.yaml').toString('utf8');
+                        // expect(bp_from_file).to.be.equal(blueprint);
                         success_blueprints.push(blueprint);
                     } catch (e) {
                         // TypeError

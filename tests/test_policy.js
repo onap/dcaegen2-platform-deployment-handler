@@ -1,5 +1,5 @@
 /*
-Copyright(c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+Copyright(c) 2017-2019 AT&T Intellectual Property. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -52,9 +52,8 @@ const MONKEYED_POLICY_ID_5 = "DCAE_alex.Config_peach_5";
 const MONKEYED_POLICY_ID_6 = "DCAE_alex.Config_peach_6";
 const CLAMP_POLICY_ID = "CLAMP.Config_clamp_policy";
 
-const CFY_API = "/api/v2.1";
-const CFY_API_NODE_INSTANCES = CFY_API + "/node-instances";
-const CFY_API_EXECUTIONS = CFY_API + "/executions";
+const CFY_API_NODE_INSTANCES = dh.CLOUDIFY_API + "/node-instances";
+const CFY_API_EXECUTIONS = dh.CLOUDIFY_API + "/executions";
 const CFY_API_EXECUTION = CFY_API_EXECUTIONS + "/";
 
 function create_policy_body(policy_id, policy_version=1, matching_conditions=null) {

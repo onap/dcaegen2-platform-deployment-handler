@@ -1,5 +1,5 @@
 /*
-Copyright(c) 2018 AT&T Intellectual Property. All rights reserved.
+Copyright(c) 2018-2019 AT&T Intellectual Property. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,10 +24,12 @@ const nock = require('nock');
 const utils = require('./mock_utils');
 
 const MAIN_PATH = './../';
+const LOG_PATH = './log/';
 
 const CONSUL_URL = 'http://consul:8500';
 const MOCK_CLOUDIFY_MANAGER = "mock_cloudify_manager";
 const CLOUDIFY_URL = "http://" + MOCK_CLOUDIFY_MANAGER + ":80";
+const CLOUDIFY_API = "/api/v2.1";
 
 const MOCK_INVENTORY = "mock_inventory";
 const INVENTORY_URL = "https://" + MOCK_INVENTORY + ":8080";
@@ -45,7 +47,7 @@ nock(CONSUL_URL).persist().get('/v1/catalog/service/cloudify_manager')
         "NodeMeta":{},
         "ServiceID":"cloudify_manager",
         "ServiceName":"cloudify_manager",
-        "ServiceTags":["http://" + MOCK_CLOUDIFY_MANAGER + "/api/v2.1"],
+        "ServiceTags":["http://" + MOCK_CLOUDIFY_MANAGER + CLOUDIFY_API],
         "ServiceAddress": MOCK_CLOUDIFY_MANAGER,
         "ServicePort":80,
         "ServiceEnableTagOverride":false,
@@ -99,5 +101,7 @@ const run_dh = function() {
 
 module.exports.INVENTORY_URL = INVENTORY_URL;
 module.exports.CLOUDIFY_URL = CLOUDIFY_URL;
+module.exports.CLOUDIFY_API = CLOUDIFY_API;
+module.exports.LOG_PATH = LOG_PATH;
 module.exports.add_tests = function(new_tests) {Array.prototype.push.apply(tests, new_tests);};
 module.exports.run_dh = run_dh;
