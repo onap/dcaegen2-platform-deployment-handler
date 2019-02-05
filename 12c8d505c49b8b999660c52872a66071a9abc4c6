@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Tue, 05 Feb 2019 21:09:18 +0000
+Reviewed-on: https://gerrit.onap.org/r/77806
+Project: dcaegen2/platform/deployment-handler
+Branch: refs/heads/master
