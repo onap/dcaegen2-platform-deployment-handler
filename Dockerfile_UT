@@ -6,7 +6,8 @@ ENV APPDIR ${INSROOT}/${APPUSER}
 
 WORKDIR ${APPDIR}
 
-RUN mkdir -p ${APPDIR}/lib \
+RUN uname -a \
+ && mkdir -p ${APPDIR}/lib \
  && mkdir -p ${APPDIR}/tests \
  && mkdir -p ${APPDIR}/etc \
  && mkdir -p ${APPDIR}/log \
