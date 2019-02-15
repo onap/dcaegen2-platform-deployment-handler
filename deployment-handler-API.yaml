@@ -1,5 +1,5 @@
 # ================================================================================
-# Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2019 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 swagger: '2.0'
 
 info:
-  version: "5.0.0"
+  version: "5.1.0"
   title: "deployment-handler API"
   license:
     name: "Apache 2.0"
@@ -375,6 +375,82 @@ paths:
         200:
           description: deployment-handler found components with or without policies in cloudify
 
+  /healthcheck:
+    get:
+      tags:
+        - "healthcheck"
+      description: Returns version information and links to API operations thus checking internal health of deployment handler
+      produces:
+        - "application/json"
+      responses:
+
+        200:
+          description: Success
+          schema:
+            title: DispatcherInfo
+            type: object
+            properties:
+              apiVersion:
+                type: string
+                description: |
+                  version of API supported by this server
+              serverVersion:
+                type: string
+                description: |
+                  version of software running on this server
+              links:
+                type: object
+                description: |
+                  Links to API resources
+                properties:
+                  info:
+                    type: string
+                    description: |
+                      path for the server information endpoint
+                  events:
+                    type: string
+                    description: |
+                      path for the events endpoint
+
+  /servicehealth:
+    get:
+      tags:
+        - "servicehealth"
+      description: checks deployment handler's dependencies/external interfaces' health; namely inventory and cloudify
+      produces:
+        - "application/json"
+      responses:
+
+        200:
+          description: Success
+          schema:
+            title: DeploymentHanlderServiceHealth
+            type: object
+            properties:
+              requestId:
+                type: string
+                description: |
+                  Internal request id (for tracking purposes)
+              status:
+                type: string
+                description: |
+                  Status of the API call: OK or NOT OK
+
+        500:
+          description: |
+            Problem on the server side.  See the message in the response for more details.
+          schema:
+            $ref: "#/definitions/DCAEErrorResponse"
+
+        502:
+          description: |
+            Error reported to the dispatcher by a downstream system.  See the message in the response for more details.
+          schema:
+            $ref: "#/definitions/DCAEErrorResponse"
+
+        503:
+          description: |
+            Error communicating with a downstream system(s). Inventory/Cloudify service is not available.
 
 definitions:
 
