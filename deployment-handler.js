@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and limitations 
 
 "use strict";
 
-const API_VERSION = "5.0.0";
+const API_VERSION = "5.1.0";
 
 const http = require('http');
 const https = require('https');
@@ -32,6 +32,8 @@ const INFO_PATH = "/";
 const DEPLOYMENTS_PATH = "/dcae-deployments";
 const POLICY_PATH = "/policy";
 const SWAGGER_UI_PATH = "/swagger-ui";
+const HEALTH_CHECK = "/healthcheck";
+const SERVICE_HEALTH = "/servicehealth";
 
 const app = express();
 
@@ -47,10 +49,11 @@ const set_app = function() {
 	app.use(require('./lib/auth').checkAuth);
 
 	/* Set up API routes */
-	app.use(INFO_PATH, require('./lib/info'));
+	app.use([HEALTH_CHECK, INFO_PATH], require('./lib/info'));
 	app.use(DEPLOYMENTS_PATH, require('./lib/dcae-deployments'));
 	app.use(POLICY_PATH, require('./lib/policy'));
 	app.use(SWAGGER_UI_PATH, require('./lib/swagger-ui'));
+	app.use(SERVICE_HEALTH, require('./lib/service-health'));
 
 	/* Set up error handling */
 	app.use(require('./lib/middleware').handleErrors);
@@ -70,6 +73,8 @@ const start = function(config) {
 	config.apiVersion = API_VERSION;
 	config.apiLinks = {
 		"info" : INFO_PATH,
+		"internal-health" : HEALTH_CHECK,
+		"service-health" : SERVICE_HEALTH,
 		"deployments": DEPLOYMENTS_PATH,
 		"policy": POLICY_PATH,
 		"swagger-ui": SWAGGER_UI_PATH
@@ -78,6 +83,13 @@ const start = function(config) {
 
 	log.info(null, "Configuration: " + JSON.stringify(config, utils.hideSecrets));
 	console.log((new Date()) + ": Configuration: " + JSON.stringify(config, utils.hideSecrets, 2) );
+
+	var cfy = require("./lib/cloudify.js");
+	/* Set config for interface library */
+	cfy.setAPIAddress(config.cloudify.url);
+	cfy.setCredentials(config.cloudify.user, config.cloudify.password);
+	cfy.setLogger(log);
+	process.mainModule.exports.cfy = cfy;
 
 	set_app();
 
