@@ -29,7 +29,8 @@ const LOG_PATH = './log/';
 const CONSUL_URL = 'http://consul:8500';
 const MOCK_CLOUDIFY_MANAGER = "mock_cloudify_manager";
 const CLOUDIFY_URL = "http://" + MOCK_CLOUDIFY_MANAGER + ":80";
-const CLOUDIFY_API = "/api/v2.1";
+//const CLOUDIFY_API = "/api/v2.1";
+const CLOUDIFY_API = "/api/v3.1";
 
 const MOCK_INVENTORY = "mock_inventory";
 const INVENTORY_URL = "https://" + MOCK_INVENTORY + ":8080";

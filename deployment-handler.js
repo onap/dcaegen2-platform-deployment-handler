@@ -18,7 +18,7 @@ See the License for the specific language governing permissions and limitations 
 
 "use strict";
 
-const API_VERSION = "5.0.0";
+const API_VERSION = "5.1.0";
 
 const http = require('http');
 const https = require('https');
@@ -32,6 +32,8 @@ const INFO_PATH = "/";
 const DEPLOYMENTS_PATH = "/dcae-deployments";
 const POLICY_PATH = "/policy";
 const SWAGGER_UI_PATH = "/swagger-ui";
+const HEALTH_CHECK = "/healthcheck";
+const SERVICE_HEALTH = "/servicehealth";
 
 const app = express();
 
@@ -47,10 +49,11 @@ const set_app = function() {
 	app.use(require('./lib/auth').checkAuth);
 
 	/* Set up API routes */
-	app.use(INFO_PATH, require('./lib/info'));
+	app.use([HEALTH_CHECK, INFO_PATH], require('./lib/info'));
 	app.use(DEPLOYMENTS_PATH, require('./lib/dcae-deployments'));
 	app.use(POLICY_PATH, require('./lib/policy'));
 	app.use(SWAGGER_UI_PATH, require('./lib/swagger-ui'));
+	app.use(SERVICE_HEALTH, require('./lib/service-health'));
 
 	/* Set up error handling */
 	app.use(require('./lib/middleware').handleErrors);
@@ -70,6 +73,8 @@ const start = function(config) {
 	config.apiVersion = API_VERSION;
 	config.apiLinks = {
 		"info" : INFO_PATH,
+		"internal-health" : HEALTH_CHECK,
+		"service-health" : SERVICE_HEALTH,
 		"deployments": DEPLOYMENTS_PATH,
 		"policy": POLICY_PATH,
 		"swagger-ui": SWAGGER_UI_PATH
@@ -145,6 +150,61 @@ const start = function(config) {
 /* Set up logging */
 const logging = require('./lib/logging');
 const log = logging.getLogger();
+
+console.log( (new Date()) + "\n\t -> USE_CONSUL = " + process.env.USE_CONSUL );
+
+if ( process.env.USE_CONSUL === "FALSE" ) {
+    if ( process.env.CLOUDIFY ) {
+        console.log( "\t -> CLOUDIFY = " + process.env.CLOUDIFY );
+	}
+    else {
+        console.log( (new Date()) + " No CLOUDIFY env var defined. Exiting");
+        process.exit(1);
+	}
+
+    if ( process.env.INVENTORY_SERVICE_SERVICE_PORT  ) {
+        console.log( "\t -> INVENTORY_SERVICE_SERVICE_PORT = " + process.env.INVENTORY_SERVICE_SERVICE_PORT );
+    }
+    else {
+        console.log( (new Date()) + " No INVENTORY_SERVICE_SERVICE_PORT env var defined. Exiting");
+        process.exit(1);
+    }
+
+    if ( process.env.INVENTORY_PROTOCOL ) {
+        console.log( "\t -> INVENTORY_PROTOCOL = " + process.env.INVENTORY_PROTOCOL );
+    }
+    else {
+        console.log( (new Date()) + " No process.env.INVENTORY_PROTOCOL env var defined. Exiting");
+        process.exit(1);
+    }
+
+    if ( process.env.INVENTORY_SERVICE_NAME ) {
+        console.log( "\t -> INVENTORY_SERVICE_NAME = " + process.env.INVENTORY_SERVICE_NAME );
+    }
+    else {
+        console.log( (new Date()) + " No process.env.INVENTORY_SERVICE_NAME env var defined. Exiting");
+        process.exit(1);
+    }
+
+    if ( process.env.NAMESPACE ) {
+        console.log( "\t -> NAMESPACE = " + process.env.NAMESPACE );
+    }
+    else {
+        console.log( (new Date()) + " No process.env.NAMESPACE env var defined. Exiting");
+        process.exit(1);
+    }
+
+    if ( process.env.INVENTORY_SERVICE_NAME_SUFFIX ) {
+        console.log( "\t -> INVENTORY_SERVICE_NAME_SUFFIX = " + process.env.INVENTORY_SERVICE_NAME_SUFFIX );
+    }
+    else {
+        console.log( (new Date()) + " No process.env.INVENTORY_SERVICE_NAME_SUFFIX env var defined. Exiting");
+        process.exit(1);
+    }
+}
+else {
+    console.log( (new Date()) + " -> CONSUL_HOST = " + process.env.CONSUL_HOST );
+}
 
 /* Get configuration and start */
 conf.configure()
