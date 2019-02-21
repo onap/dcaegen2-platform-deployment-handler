@@ -1,0 +1,510 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e61be047_4c16bd07",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "this is not a full description of the changes\n\nyou do not mention, but you are upgrading the cloudify api from 2.1 and 3.1 - that is a major change that requires increment of the major version of the deployment-handler because it requires upgrading cloudify from 3.x to 4.x that is considered as the breaking change",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 32
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "efba97e5_12b9cfad",
+        "filename": "deployment-handler.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "if you need a new line in console.log, just split the console.log into two separate calls...",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 31
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d136579e_81f0a613",
+        "filename": "deployment-handler.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "exiting is a harsh action - are you sure you need it to be that bad ?",
+      "range": {
+        "startLine": 162,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 24
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48c727ee_42f2d5ac",
+        "filename": "deployment-handler.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "mix of spaces and tabs messes up the alignment of the code",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 2
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29ea75ed_0ed387e1",
+        "filename": "deployment-handler.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "exit is harsh",
+      "range": {
+        "startLine": 170,
+        "startChar": 8,
+        "endLine": 170,
+        "endChar": 23
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ac337978_60058ae8",
+        "filename": "deployment-handler.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "exit is harsh",
+      "range": {
+        "startLine": 178,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 23
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a84fa67f_71ffb297",
+        "filename": "deployment-handler.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "exit is harsh",
+      "range": {
+        "startLine": 186,
+        "startChar": 8,
+        "endLine": 186,
+        "endChar": 23
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "982e29c2_65f82aad",
+        "filename": "deployment-handler.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "exit is harsh",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 23
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "095abca0_913e99e7",
+        "filename": "deployment-handler.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "exit is harsh",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 202,
+        "endChar": 23
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ae35239_950a0dbe",
+        "filename": "deployment-handler.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "this whole piece deserves to be separated into a dedicated function especially because it is only needed when ( process.env.USE_CONSUL \u003d\u003d\u003d \"FALSE\" )\n\nplus it should be placed into config.js because it is about the config\n\nplus the logging should be written into the logger instead of or in addition to the console.log()",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 1
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a321c425_825db58c",
+        "filename": "lib/config.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "the upgrade for cloudify API from 2.1 to 3.1 commands a major increment of the version of the deployment-handler because it breaks the environment - it requires having cloudify 4.x installed instead of cloudify 3.x",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 32
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d5e7ceb_8a56e0e3",
+        "filename": "lib/config.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "1. instead of \u0027FALSE\u0027 repeating in many places, it might be better defining const and comparing against that const\n\n2. I only see the single value \u0027FALSE\u0027 for useConsul, it might be better to have a var useConsul of type bool",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 34
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8da0067c_dc1b9137",
+        "filename": "lib/config.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "mix of spaces and tabs messes up the alignment of the code",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 24
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eda4c2fd_5bfb3bcf",
+        "filename": "lib/config.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "useConsul seems like a polymorphic corner stone for many config data\n\ninstead of having the var useConsul and having the same if (useConsul \u003d\u003d\u003d \u0027FALSE\u0027) in every function, you might want to make the functions polymorphic by function substitution - define two sets of functions and replace the vars that point to the function with the overriding function like\n\nvar myFunc \u003d function(a,b,c) {return a+b+c;};\nconst myFuncProduct \u003d function(a,b,c) {return a*b*c;};\n\nassert(7 \u003d\u003d\u003d myFunc(1,2,4));\n\nif (process.env.USE_CONSUL \u003d\u003d\u003d \u0027FALSE\u0027) {myFunc \u003d myFuncProduct;}\n\n// in case USE_CONSUL\u003dFALSE\nassert(8 \u003d\u003d\u003d myFunc(1,2,4));\n\nthis way each function will be much smaller and easier to understand",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 85
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49198b61_b1ff2d9e",
+        "filename": "lib/service-health.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "this is a new file added in 2019 - there is no copyright on it from 2017",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af5b25f8_f058f3af",
+        "filename": "lib/service-health.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "this seems like something that we should not be repeating in multiple places and do it only once after configure - that is my fault on /policy api as well",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 19
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36184561_ab988f30",
+        "filename": "lib/service-health.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "might be better to say Inventory instead of the Service here ?",
+      "range": {
+        "startLine": 56,
+        "startChar": 43,
+        "endLine": 56,
+        "endChar": 50
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2dd74eae_a685349c",
+        "filename": "lib/service-health.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "you might want to log getCfyStatus Response inside getCfyStatus() along with the response status rather than here",
+      "range": {
+        "startLine": 62,
+        "startChar": 20,
+        "endLine": 62,
+        "endChar": 70
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12104b36_8e5c2e6a",
+        "filename": "lib/service-health.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "var -\u003e const",
+      "range": {
+        "startLine": 73,
+        "startChar": 32,
+        "endLine": 73,
+        "endChar": 35
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03335d22_c64772a0",
+        "filename": "tests/test_service-health.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "only 2019",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ce4ef23_1864475a",
+        "filename": "tests/test_service-health.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "fs is not used here",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 24
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e8a96d8_a776c4a7",
+        "filename": "tests/test_service-health.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-21T15:41:17Z",
+      "side": 1,
+      "message": "admzip is not used here",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 33
+      },
+      "revId": "a88938b99a8262e75215dbecdfc80aa78fe360d1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
