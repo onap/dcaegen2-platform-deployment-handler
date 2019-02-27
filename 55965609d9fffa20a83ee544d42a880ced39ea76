@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02fc46a7_9d71f67e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-27T21:31:03Z",
+      "side": 1,
+      "message": "please limit the length (\u003c\u003d75 chars) of the lines in commit to be seen on UI",
+      "range": {
+        "startLine": 10,
+        "startChar": 72,
+        "endLine": 10,
+        "endChar": 86
+      },
+      "revId": "55965609d9fffa20a83ee544d42a880ced39ea76",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6147fc2d_fb395115",
+        "filename": "lib/config.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-27T21:31:03Z",
+      "side": 1,
+      "message": "mix of spaces and tabs in many places",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 5
+      },
+      "revId": "55965609d9fffa20a83ee544d42a880ced39ea76",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77683d86_ebae6d9a",
+        "filename": "lib/config.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-27T21:31:03Z",
+      "side": 1,
+      "message": "why the \";\" is removed from these lines ?",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 6
+      },
+      "revId": "55965609d9fffa20a83ee544d42a880ced39ea76",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77812ea7_3d9281b2",
+        "filename": "lib/config.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-27T21:31:03Z",
+      "side": 1,
+      "message": "unreachable code",
+      "range": {
+        "startLine": 292,
+        "startChar": 4,
+        "endLine": 292,
+        "endChar": 18
+      },
+      "revId": "55965609d9fffa20a83ee544d42a880ced39ea76",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4324319b_623b56a5",
+        "filename": "version.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-02-27T21:31:03Z",
+      "side": 1,
+      "message": "this does not look right",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 52
+      },
+      "revId": "55965609d9fffa20a83ee544d42a880ced39ea76",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
