@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d2da7818_4d33fb60",
+        "filename": "lib/config.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4015
+      },
+      "writtenOn": "2019-03-04T23:11:44Z",
+      "side": 1,
+      "message": "I don\u0027t think this change is really needed since we\u0027d be going also from 2 functions to 4 functions and don\u0027t think we can centralize all useConsul variations in one place - this config is done only once at startup as of now. The way it\u0027s now (w/ 2 functions) doesn\u0027t really add any additional complexity and it\u0027s not duplication code; However, there is also merit in using 4 functions so I\u0027ll make the change to use new functions as suggested.",
+      "parentUuid": "197c64c1_97085b21",
+      "revId": "6b988ca5fd6ab3a29e42e56d94eb4093fe6e6ba9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e766cfed_03117dac",
         "filename": "lib/config.js",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2019-03-04T17:58:51Z",
       "side": 1,
       "message": "The service information for Cloudify Manager is treated differently from Inventory.  I suggest just augmenting the existing set of environment variables.\nWe already have CLOUDIFY_PROTOCOL and INVENTORY_PROTOCOL.  I suggest adding CLOUDIFY_HOST, CLOUDIFY_PORT, INVENTORY_HOST, and INVENTORY_PORT.  I also suggest adding the corresponding elements to the JSON structure (cloudify.host, cloudify.port, inventory.host, inventory.port).  The normal case is for deployment handler to run in a Kubernetes, in the same cluster as Cloudify Manager and inventory, so we can also have useful defaults.  (CLOUDIFY_HOST: \"cloudify-manager\", CLOUDIFY_PORT: 443 (to correspond with the default protocol, https), INVENTORY_HOST: \"inventory\", INVENTORY_PORT: 8080) \nThis can all be documented in the table in the comment at the start of the file.",
+      "revId": "6b988ca5fd6ab3a29e42e56d94eb4093fe6e6ba9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f1782d1_54678c27",
+        "filename": "lib/config.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 4015
+      },
+      "writtenOn": "2019-03-04T23:11:44Z",
+      "side": 1,
+      "message": "I don\u0027t know if we should be adding these 4 env variables; I\u0027d rather keep it the way it is now. It\u0027s you know pretty clear how these host/port values are coming from. \nPerhaps later if we need more use of these settings, we can add them as new env. variables.",
+      "parentUuid": "e766cfed_03117dac",
       "revId": "6b988ca5fd6ab3a29e42e56d94eb4093fe6e6ba9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
