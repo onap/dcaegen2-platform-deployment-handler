@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "197c64c1_97085b21",
+        "filename": "lib/config.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2019-03-04T17:58:51Z",
+      "side": 1,
+      "message": "The code has many instances of \"if (useConsul \u003d\u003d\u003d false)\" scattered through it.   It will be clearer and easier to maintain if you:\n(a) Keep the original getConfig() and getService() functions, designed to be used with Consul, renaming them to getConfigWithConsul() and getServiceWithConsul(), or something like that.\n(b) Create two new functions, one to get configuration information without Consul and one to get Service information without Consul.\n(c) Select which version of each function to use based on the setting of the USE_CONSUL environment variable.  \n(For instance, const getConfig \u003d (process.env.USE_CONSUL \u003d\u003d\u003d \"FALSE\") ? getConfigWithoutConsul : getConfigWithConsul.  Or use an object with \"TRUE\" and \"FALSE\" as keys.)",
+      "revId": "6b988ca5fd6ab3a29e42e56d94eb4093fe6e6ba9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e766cfed_03117dac",
+        "filename": "lib/config.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2019-03-04T17:58:51Z",
+      "side": 1,
+      "message": "The service information for Cloudify Manager is treated differently from Inventory.  I suggest just augmenting the existing set of environment variables.\nWe already have CLOUDIFY_PROTOCOL and INVENTORY_PROTOCOL.  I suggest adding CLOUDIFY_HOST, CLOUDIFY_PORT, INVENTORY_HOST, and INVENTORY_PORT.  I also suggest adding the corresponding elements to the JSON structure (cloudify.host, cloudify.port, inventory.host, inventory.port).  The normal case is for deployment handler to run in a Kubernetes, in the same cluster as Cloudify Manager and inventory, so we can also have useful defaults.  (CLOUDIFY_HOST: \"cloudify-manager\", CLOUDIFY_PORT: 443 (to correspond with the default protocol, https), INVENTORY_HOST: \"inventory\", INVENTORY_PORT: 8080) \nThis can all be documented in the table in the comment at the start of the file.",
+      "revId": "6b988ca5fd6ab3a29e42e56d94eb4093fe6e6ba9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
