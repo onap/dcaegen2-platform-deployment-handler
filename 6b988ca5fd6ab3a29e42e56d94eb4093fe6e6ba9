@@ -69,6 +69,24 @@
       "revId": "6b988ca5fd6ab3a29e42e56d94eb4093fe6e6ba9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5201795e_f48c3972",
+        "filename": "lib/config.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2019-03-06T14:57:34Z",
+      "side": 1,
+      "message": "You\u0027ve introduced a number of new variables that aren\u0027t documented and that don\u0027t treat Cloudify and inventory in a consistent way.  \n\nSomeone is going to have to create the Helm chart that sets up the environment variables for a no-Consul deployment, and I don\u0027t see a good reason for having inconsistencies between Cloudify and inventory and inconsistencies between how we handle basic configuration information and how we handle the addressing information for Cloudify and inventory.\n\nI am suggesting that we get rid of your new variables and go from this:\n * --------------------------------------------------------------------------------------\n * | cloudify.user         | CLOUDIFY_USER          | No        | none                  |\n * --------------------------------------------------------------------------------------\n * | cloudify.password     | CLOUDIFY_PASSWORD      | No        | none                  |\n * --------------------------------------------------------------------------------------\n * | cloudify.protocol     | CLOUDIFY_PROTOCOL      | No        | \"https\"               |\n * --------------------------------------------------------------------------------------\n * | inventory.user        | INVENTORY_USER         | No        | none                  |\n * --------------------------------------------------------------------------------------\n * | inventory.password    | INVENTORY_PASSWORD     | No        | none                  |\n * --------------------------------------------------------------------------------------\n * | inventory.protocol    | INVENTORY_PROTOCOL     | No        | \"https\"               |\n\nto this:\n * --------------------------------------------------------------------------------------\n * | cloudify.user         | CLOUDIFY_USER          | No        | none                  |\n * --------------------------------------------------------------------------------------\n * | cloudify.password     | CLOUDIFY_PASSWORD      | No        | none                  |\n * --------------------------------------------------------------------------------------\n * | cloudify.protocol     | CLOUDIFY_PROTOCOL      | No        | \"https\"               |\n * --------------------------------------------------------------------------------------\n * | cloudify.host         | CLOUDIFY_HOST          | If not using Consul| \"cloudify-manager\"|\n * -------------------------------------------------------------------------------------------\n * | cloudify.port         | CLOUDIFY_PORT          | No        | None                  |\n * --------------------------------------------------------------------------------------\n * | inventory.user        | INVENTORY_USER         | No        | none                  |\n * --------------------------------------------------------------------------------------\n * | inventory.password    | INVENTORY_PASSWORD     | No        | none                  |\n * --------------------------------------------------------------------------------------\n * | inventory.protocol    | INVENTORY_PROTOCOL     | No        | \"https\"               |\n * --------------------------------------------------------------------------------------\n * | inventory.host        | INVENTORY_HOST         | If not using Consul| \"inventory\"  |\n * -------------------------------------------------------------------------------------|\n * | inventory.port        | CLOUDIFY_PORT          | No        | 8080                  |\n * --------------------------------------------------------------------------------------",
+      "parentUuid": "1f1782d1_54678c27",
+      "revId": "6b988ca5fd6ab3a29e42e56d94eb4093fe6e6ba9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
