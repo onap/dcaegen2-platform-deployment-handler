@@ -87,6 +87,24 @@
       "revId": "6b988ca5fd6ab3a29e42e56d94eb4093fe6e6ba9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6958fb83_5e823843",
+        "filename": "lib/config.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 4015
+      },
+      "writtenOn": "2019-03-06T15:46:52Z",
+      "side": 1,
+      "message": "I don\u0027t know if inventory and cloudify treatment should be consistent - for example, inventory has no user and password but cloudify does among other reasons below.\n\nAlso, on k8s, the platform makes available an env. variable: INVENTORY_SERVICE_SERVICE_PORT that I have to use to get inventory port.\nSo there are differences in how they\u0027re treated.\n\nUsing the inventory env variable names that I have also corresponds with their application; i.e. using INVENTORY_SERVICE_NAME refers to the inventory service name and should be self explanatory. \nGetting inventory \"host\" on k8s consists of 3 parts: INVENTORY_SERVICE_NAME + INVENTORY_SERVICE_NAME_SUFFIX + INVENTORY_SERVICE_SERVICE_PORT (along with NAMESPACE) so we can\u0027t just use a single env var like: INVENTORY_HOST.\n\nAlso, for cloudify, I\u0027m using same existing format we\u0027re using today (using consul) so that someone can just pass the existing consul config via the CLOUDIFY env. variable, this way we follow same format.\n\nAs for documenting the table; yes I can do that once we agree on path forward.",
+      "parentUuid": "5201795e_f48c3972",
+      "revId": "6b988ca5fd6ab3a29e42e56d94eb4093fe6e6ba9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
