@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96969e2c_b2d91c8f",
+        "filename": "lib/config.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2019-03-22T11:54:23Z",
+      "side": 1,
+      "message": "To make this work, whoever writes the Helm chart is going to have to explicitly set the variables you\u0027re proposing.  They do not come automatically from k8s. \n\nIn ONAP R4, the deployment handler is launched via Helm, and inside the container the only environment variables containing \"INVENTORY\" are\nINVENTORY_PORT_8080_TCP\u003dtcp://10.43.181.22:8080\nINVENTORY_SERVICE_PORT_INVENTORY\u003d8080\nINVENTORY_PORT_8080_TCP_PORT\u003d8080\nINVENTORY_SERVICE_PORT\u003d8080\nINVENTORY_PORT_8080_TCP_ADDR\u003d10.43.181.22\nINVENTORY_SERVICE_HOST\u003d10.43.181.22\nINVENTORY_PORT\u003dtcp://10.43.181.22:8080\nINVENTORY_PORT_8080_TCP_PROTO\u003dtcp\n\nI don\u0027t see how this approach is simpler or cleaner than what I proposed.  It\u0027s easier for the person writing the Helm chart to set environment variables in a consistent way for both CM and inventory.",
+      "revId": "a635d1ca6bd8da77468a8c5cc71e6b5e8d167b1b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
