@@ -105,6 +105,24 @@
       "revId": "6b988ca5fd6ab3a29e42e56d94eb4093fe6e6ba9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30ae19c0_42199f4c",
+        "filename": "lib/config.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2019-03-22T11:54:23Z",
+      "side": 1,
+      "message": "k8s makes similar variables available for Cloudify Manager port and address.  (In ONAP, CM runs in k8s.) There really isn\u0027t a difference.\n\nThe CLOUDIFY variable that you\u0027re proposing overlaps with existing variables that convey the same information.  \n\nSince there is already a solution for providing DH configuration in Consul for the Dublin release, maybe the best way forward is to drop the \"useConsul\" changes for now and revisit it later.",
+      "parentUuid": "6958fb83_5e823843",
+      "revId": "6b988ca5fd6ab3a29e42e56d94eb4093fe6e6ba9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
