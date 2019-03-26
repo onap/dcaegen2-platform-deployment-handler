@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84d4d6d5_b64a0fed",
+        "filename": "version.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2019-03-26T15:20:57Z",
+      "side": 1,
+      "message": "do not see any difference in this file :-(",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 29
+      },
+      "revId": "7c78f9c1208af746b417c5184abfaddc318926b4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
