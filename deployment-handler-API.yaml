@@ -213,6 +213,12 @@ paths:
           in: path
           type: string
           required: true
+        - name: force_uninstall
+            description: |
+              Set the "force" boolean flag when performing an uninstall in Cloudify. Optional, if not specified, "false" will be used.
+            in: query
+            type: string
+            required: false
 
       responses:
 
