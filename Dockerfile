@@ -1,4 +1,4 @@
-FROM node:6.10.3
+FROM node:10.16.0
 
 ENV INSROOT /opt/app
 ENV APPUSER dh
