@@ -1,5 +1,5 @@
 /*
-Copyright(c) 2017-2019 AT&T Intellectual Property. All rights reserved.
+Copyright(c) 2017-2020 AT&T Intellectual Property. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -214,8 +214,8 @@ function nock_cfy_node_instances(action_timer) {
     nock(dh.CLOUDIFY_URL).get(CFY_API_NODE_INSTANCES)
         .query(params => {
             console.log(action_timer.step, "get", dh.CLOUDIFY_URL, CFY_API_NODE_INSTANCES, JSON.stringify(params));
-            return !!(params._include === "id,deployment_id,runtime_properties"
-                      && params._size === "1000" && params._offset === "0");
+            //return !!(params._include === "id,deployment_id,runtime_properties"
+            return !!(params._size === "1000" && params._offset === "0");
         })
         .reply(200, function(uri) {
             console.log(action_timer.step, "get", dh.CLOUDIFY_URL, uri);
