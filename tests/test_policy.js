@@ -220,8 +220,8 @@ function nock_cfy_node_instances(action_timer) {
     return nock(dh.CLOUDIFY_URL).get(CFY_API_NODE_INSTANCES)
         .query(params => {
             console.log(action_timer.step, "get", dh.CLOUDIFY_URL, CFY_API_NODE_INSTANCES, JSON.stringify(params));
-            return !!(params._include === "id,deployment_id,runtime_properties"
-                      && params._size === "1000" && params._offset === "0");
+            //return !!(params._include === "id,deployment_id,runtime_properties"
+            return !!(params._size === "1000" && params._offset === "0");
         })
         .reply(200, function(uri) {
             console.log(action_timer.step, "get", dh.CLOUDIFY_URL, uri);
