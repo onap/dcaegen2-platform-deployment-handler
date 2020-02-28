@@ -1,52 +1,48 @@
 {
-	"appenders": 
-	[
-		{
+	"appenders": {
+		"out": {"type": "stdout"},
+		"audit": {
 			"type": "file",
 			"filename": "log/audit.log",
 			"maxLogSize": 10240000,
 			"backups": 10,
-			"category": ["audit"],
-			"layout": 
-			{
+			"layout": {
 				"type": "messagePassThrough"
 			}
 		},
-		
-		{
+		"metrics": {
 			"type": "file",
 			"filename": "log/metrics.log",
 			"maxLogSize": 10240000,
 			"backups": 10,
-			"category": ["metrics"],
-			"layout": 
-			{
+			"layout": {
 				"type": "messagePassThrough"
 			}
-		},	
-		
-		{
+		},
+		"error": {
 			"type": "file",
 			"filename": "log/error.log",
 			"maxLogSize": 10240000,
 			"backups": 10,
-			"category": ["error"],
-			"layout": 
-			{
+			"layout": {
 				"type": "messagePassThrough"
 			}
 		},
-		
-		{
+		"debug": {
 			"type": "file",
 			"filename": "log/debug.log",
 			"maxLogSize": 10240000,
 			"backups": 10,
-			"category": ["debug"],
-			"layout": 
-			{
+			"layout": {
 				"type": "messagePassThrough"
 			}
-		}	
-	]
+		}
+	},
+	"categories": {
+		"default": {"appenders": ["out"], "level": "debug"},
+		"audit": {"appenders": ["audit"], "level": "info"},
+		"metrics": {"appenders": ["metrics"], "level": "info"},
+		"error": {"appenders": ["error"], "level": "error"},
+		"debug": {"appenders": ["debug"], "level": "debug"}
+	}
 }

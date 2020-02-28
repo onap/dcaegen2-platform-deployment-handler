@@ -1,5 +1,5 @@
 # ================================================================================
-# Copyright (c) 2017-2019 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -594,7 +594,7 @@ definitions:
         description: unique policy name that contains the version and extension
         type: string
       policyVersion:
-        description: stringified int that is autoincremented by policy-engine
+        description: semver that is provided to policy-engine on policy modification
         type: string
       config:
         description: the policy-config - the config data provided by policy owner

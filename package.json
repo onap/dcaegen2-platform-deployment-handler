@@ -1,30 +1,36 @@
 {
   "name": "onap-dcae-deployment-handler",
-  "version": "6.0.2",
+  "version": "6.1.0",
   "description": "ONAP DCAE Deployment Handler",
   "main": "deployment-handler.js",
   "dependencies": {
     "adm-zip": "0.4.11",
-    "body-parser": "^1.15.0",
-    "express": "^4.13.4",
-    "log4js": "^0.6.33",
-    "swagger-ui-express": "latest",
-    "uuid": "^3.0.1",
-    "yamljs": "latest"
+    "body-parser": "1.19.0",
+    "express": "4.17.1",
+    "log4js": "6.1.2",
+    "swagger-ui-express": "4.1.3",
+    "uuid": "7.0.1",
+    "yamljs": "0.3.0"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "chai-http": "^3.0.0",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.5.3",
-    "nock": "^9.0.21"
+    "chai": "4.2.0",
+    "chai-http": "4.3.0",
+    "mocha": "7.1.0",
+    "nock": "12.0.1",
+    "nyc": "15.0.0"
   },
   "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter spec tests/",
-    "test-only": "mocha --reporter spec tests/",
-    "test-ci": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec tests/",
-    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot tests/"
+    "start": "node deployment-handler.js",
+    "test": "mocha --reporter spec --exit \"./tests/*.js\"",
+    "coverage": "nyc --reporter html --reporter text npm test"
   },
-  "author": "author",
+  "engines": {
+    "node": ">=10.16.3"
+  },
+  "author": "Jack Lucas",
+  "contributors": [
+    "Alex Shatov",
+    "Shadi Haidar"
+  ],
   "license": "(Apache-2.0)"
 }
