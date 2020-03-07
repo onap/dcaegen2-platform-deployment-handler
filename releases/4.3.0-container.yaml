@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '4.3.0'
+project: 'dcae-platform-deployment-handler'
+log_dir: 'dcaegen2-platform-deployment-handler-master-release-version-java-daily/771'
+ref: dbab04e8789e29fc8dd9e86b693812ea0e071c6a
+containers:
+    - name: 'org.onap.dcaegen2.platform.deployment-handler'
+      version: '4.3.0-SNAPSHOT-20200304T234605Z'
