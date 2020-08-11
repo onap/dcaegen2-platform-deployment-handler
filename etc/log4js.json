@@ -1,15 +1,7 @@
 {
 	"appenders": {
 		"out": {"type": "stdout"},
-		"audit": {
-			"type": "file",
-			"filename": "log/audit.log",
-			"maxLogSize": 10240000,
-			"backups": 10,
-			"layout": {
-				"type": "messagePassThrough"
-			}
-		},
+		"audit": {"type": "stdout"},
 		"metrics": {
 			"type": "file",
 			"filename": "log/metrics.log",
@@ -19,24 +11,8 @@
 				"type": "messagePassThrough"
 			}
 		},
-		"error": {
-			"type": "file",
-			"filename": "log/error.log",
-			"maxLogSize": 10240000,
-			"backups": 10,
-			"layout": {
-				"type": "messagePassThrough"
-			}
-		},
-		"debug": {
-			"type": "file",
-			"filename": "log/debug.log",
-			"maxLogSize": 10240000,
-			"backups": 10,
-			"layout": {
-				"type": "messagePassThrough"
-			}
-		}
+		"error": {"type": "stdout"},
+		"debug": {"type": "stdout"}
 	},
 	"categories": {
 		"default": {"appenders": ["out"], "level": "debug"},
