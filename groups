@@ -3,4 +3,3 @@
 8db91a0faa02a421a3445d45cf38fba68eaa81df                                                             	saml/onap-gerrit-dcaegen2-platform-deployment-handler-committers
 daebbf523be390041a1a9c0e340a6d833aae5043                                                             	GitHub Replication
 global:Registered-Users                                                                              	Registered Users
-ldap:cn=onap-gerrit-dcaegen2-platform-deployment-handler-committers,ou=Groups,dc=freestandards,dc=org	ldap/onap-gerrit-dcaegen2-platform-deployment-handler-committers
