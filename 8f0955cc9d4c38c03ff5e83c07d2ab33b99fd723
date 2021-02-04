@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Submitted-by: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Submitted-at: Thu, 04 Feb 2021 08:59:40 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/platform/deployment-handler/+/117409
+Project: dcaegen2/platform/deployment-handler
+Branch: refs/heads/master
